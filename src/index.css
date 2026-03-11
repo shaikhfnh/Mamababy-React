@@ -1,0 +1,176 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Poppins", ui-sans-serif, system-ui, sans-serif;
+}
+
+
+:root {
+  --cream: #FFF7F2;
+  --peach: #FFE5D9;
+  --pink: #FFB4A2;
+  --brown: #6D4C41;
+}
+
+
+/* --- Tailwind layers --- */
+@layer base, components;
+
+/* ---------------- BASE ---------------- */
+@layer base {
+  * {
+    box-sizing: border-box;
+  }
+
+  :root {
+      --font-arabic: 'Juman', sans-serif;
+
+    color-scheme: light dark;
+
+    --bg-dark: rgb(16, 24, 40);
+    --bg-light: rgb(255, 237, 212);
+    --txt-light: rgb(10, 10, 10);
+    --txt-dark: rgb(245, 245, 245);
+    --line-light: rgba(0,0,0,0.25);
+    --line-dark: rgba(255,255,255,0.25);
+
+    /* fallback for light/dark mode */
+    --clr-bg: var(--bg-light);
+    --clr-txt: var(--txt-light);
+    --clr-lines: var(--line-light);
+  }
+    html, body {
+    font-family: var(--font-sans);
+    background: white;
+  }
+  /* in your index.css or global CSS */
+html {
+  scroll-behavior: smooth;
+}
+section {
+  scroll-margin-top: 200px; /* desktop navbar height */
+}
+
+@media screen and (max-width: 768px) {
+  section {
+    scroll-margin-top: 100px; /* mobile navbar height */
+  }
+}
+
+  rect, text {
+  font-family: var(--font-sans);
+}
+/* Juman Arabic Font */
+@font-face {
+  font-family: 'Juman';
+  src: url('./assets/juman-normal.ttf') format('truetype');
+  font-weight: 400; /* normal */
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Juman';
+  src: url('./assets/juman-bold.ttf') format('truetype');
+  font-weight: 700; /* bold */
+  font-style: normal;
+}
+
+.font-arabic {
+  font-family: var(--font-arabic);
+}
+
+  h1 {
+    margin: 0;
+    font-size: 1.2rem;
+  }
+
+  .sr-only {
+    position: absolute !important;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0,0,0,0);
+    white-space: nowrap;
+    border: 0;
+  }
+
+  .msg-supports {
+    font-size: 0.8rem;
+  }
+}
+
+/* ---------------- COMPONENT: word animation ---------------- */
+@layer components {
+  .word {
+    --translate-distance: -1lh;
+    --trans-duration: 500ms;
+    --trans-delay-factor: 20ms;
+    --trans-timimg-function: ease-in-out;
+    --text-color-hover: rgb(31, 73, 134);
+    text-decoration: none;
+    text-transform: uppercase;
+    margin: 0;
+     font-weight: 700;
+    line-height: 0.8;
+    display: flex;
+    overflow: hidden;
+    color: var(--clr-txt);
+  }
+
+  .word span {
+    display: inline-block;
+    transition: transform var(--trans-duration) var(--trans-timimg-function) var(--trans-delay, 0ms);
+    text-shadow: 0 1lh var(--text-color-hover);
+  }
+
+  /* Hover effect for word spans */
+  .word:hover span {
+    transform: translateY(var(--translate-distance));
+  }
+}
+
+/* add once globally */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+.shimmer {
+  animation: shimmer 1.5s infinite linear;
+}
+
+/* React component buttons inside your root app container */
+#your-react-root a[class*="rounded-full"],
+#your-react-root a.react-button {
+  color: #ffffff !important;
+  text-decoration: none !important;
+}
+
+#your-react-root a[class*="rounded-full"]:hover,
+#your-react-root a.react-button:hover {
+  color: #ffffff !important;
+  text-decoration: none !important;
+}
+
+#react-root a {
+  text-decoration: none !important;
+}
+
+#react-root a:hover,
+#react-root a:visited { 
+  text-decoration: none !important;
+}     
+
+a:where(:not(.wp-element-button)) {
+  text-decoration: none !important;
+}
