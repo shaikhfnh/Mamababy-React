@@ -4,10 +4,13 @@ import { createRoot } from 'react-dom/client'
 import './index.css'
 import Layout from './Layout.jsx'
 import { LanguageProvider } from './context/LanguageContext.jsx'
-import VisitSection from './VisitSection.jsx'
 import Navbar from './components/Navbar.jsx'
+import VisitLayout from './Visit/Layout.jsx'
 
 document.addEventListener('DOMContentLoaded', () => {
+
+  
+
   // #root → Layout (your existing pages)
   const rootContainers = document.querySelectorAll('#root');
   rootContainers.forEach(container => {
@@ -28,7 +31,7 @@ document.addEventListener('DOMContentLoaded', () => {
     root.render(
       <StrictMode>
         <LanguageProvider>
-          <VisitSection />
+          <VisitLayout />
         </LanguageProvider>
       </StrictMode>
     );

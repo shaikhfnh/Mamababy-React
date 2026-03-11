@@ -231,17 +231,15 @@ export default function Navbar() {
 
   return (
     <>
-      <nav className={`fixed -top-2 w-full z-50 transition-all duration-500 ${
+      <nav className={`fixed top-0 md:pb-1 w-full z-50 transition-all duration-500 ${
         scrolled 
-          ? "bg-white/95 backdrop-blur-xl shadow-xl border-b border-gray-100" 
-          : "bg-white/90 backdrop-blur-lg"
+          ? "bg-white/40 backdrop-blur-xl shadow-xl border-b border-gray-100" 
+          : "bg-white/80 backdrop-blur-lg"
       }`}>
         <div className="mx-auto px-4 sm:px-6 lg:px-8 h-16 lg:h-20 flex items-center justify-between">
           <motion.div 
-            className="flex-shrink-0 cursor-pointer p-2 rounded-xl hover:bg-gray-100 transition-all duration-300 hover:scale-105"
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-            onClick={handleLogoClick}
+            className="flex-shrink-0 cursor-pointer p-2 rounded-xl hover:bg-gray-100 transition-all duration-300 "
+                        onClick={handleLogoClick}
           >
             <img src={logo} alt="Mama Baby Expo Logo" className="h-10 sm:h-12 lg:h-14 w-auto" />
           </motion.div>
@@ -251,23 +249,23 @@ export default function Navbar() {
               <div key={i} className="relative group">
                 <motion.button
                   onClick={() => handleNavClick(link)}
-                  className="flex items-center gap-1 px-3 py-2 text-gray-800 font-medium text-sm lg:text-base xl:text-lg relative transition-all duration-300 hover:text-[#091C41]"
+                  className="flex items-center no-underline cursor-pointer gap-1 px-3 py-2 text-gray-800 font-medium text-sm lg:text-base xl:text-lg relative transition-all duration-300 hover:text-[#091C41]"
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
                 >
                   {link.label}
                   {link.dropdown && (
-                    <svg className="w-4 h-4 text-gray-500 group-hover:text-[#091C41] transition-all duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <svg className="w-4 h-4 text-gray-500 no-underline cursor-pointer group-hover:text-[#091C41] transition-all duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
                     </svg>
                   )}
                   {!link.dropdown && (
-                    <span className="absolute left-0 -bottom-1 w-0 h-px bg-gradient-to-r from-[#091C41] to-transparent transition-all duration-300 group-hover:w-full" />
+                    <span className="absolute no-underline cursor-pointer left-0 -bottom-1 w-0 h-px bg-gradient-to-r from-[#091C41] to-transparent transition-all duration-300 group-hover:w-full" />
                   )}
                 </motion.button>
 
                 {link.dropdown && link.items?.length > 0 && (
-                  <div className="absolute top-full left-0 mt-2 w-56 bg-white/95 backdrop-blur-xl shadow-xl rounded-2xl border border-gray-100 py-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-20">
+                  <div className="absolute top-full left-0 mt-2 w-56 no-underline cursor-pointer bg-white/95 backdrop-blur-xl shadow-xl rounded-2xl border border-gray-100 py-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-20">
                     {link.items.map((item, j) => (
                       <motion.button
                         key={j}
@@ -287,7 +285,7 @@ export default function Navbar() {
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
               onClick={toggleLanguage}
-              className="px-4 py-2 bg-gradient-to-r from-[#091C41] to-[#1e3a5f] text-white rounded-xl text-sm font-semibold shadow-lg hover:shadow-xl transition-all duration-300 ml-2"
+              className="px-4 py-2 bg-gradient-to-r cursor-pointer from-[#091C41] to-[#1e3a5f] text-white rounded-xl text-sm font-semibold shadow-lg hover:shadow-xl transition-all duration-300 ml-2"
             >
               {language === "en" ? "العربية" : "English"}
             </motion.button>
@@ -296,7 +294,7 @@ export default function Navbar() {
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
               onClick={() => handleScrollTo("booking")}
-              className="ml-3 px-6 lg:px-8 py-3 lg:py-3.5 rounded-2xl bg-gradient-to-r from-[#091C41] to-[#1e3a5f] text-white font-semibold text-sm lg:text-base shadow-xl hover:shadow-2xl transition-all duration-300"
+              className="ml-3 px-6 lg:px-8 py-3 lg:py-3.5 cursor-pointer rounded-2xl bg-gradient-to-r from-[#091C41] to-[#1e3a5f] text-white font-semibold text-sm lg:text-base shadow-xl hover:shadow-2xl transition-all duration-300"
             >
               {bookText}
             </motion.button>

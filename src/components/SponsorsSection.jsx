@@ -119,7 +119,7 @@ export default function SponsorsSection({ data }) {
                     <img
                       src={logo}
                       alt={`${tier.label} Logo`}
-                      className="h-20 md:h-28 object-contain"
+                      className="h-20 md:h-40 object-contain"
                     />
                   </motion.div>
                 ))}

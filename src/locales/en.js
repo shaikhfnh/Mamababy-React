@@ -61,5 +61,7 @@ export default {
     eventDetailsIntro: "Everything you need to know before planning your visit.",
     accessibilityIntro: "Easily reach the venue with convenient parking, drop-off points, and fully accessible facilities for families with strollers.",
     whatYoullExperience: "What You'll Experience",
+    eventTiming:"10AM–10PM daily",
+    startsIn:"Starts In",
   }
 };

@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { motion, useInView, useAnimation } from "framer-motion";
-import { useTranslation } from "./hooks/useTranslation";
+import { useTranslation } from "../hooks/useTranslation";
 
 export default function VisitSection() {
   const ref = useRef(null);
@@ -12,7 +12,7 @@ export default function VisitSection() {
     if (isInView) controls.start("visible");
   }, [isInView, controls]);
 
-  // ✅ FIXED VARIANTS - NO FUNCTION
+  // ✅ FIXED VARIANTS - NO FUNCTION  
   const cardVariants = {
     hidden: { opacity: 0, y: 25 },
     visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: "easeOut" } }
@@ -49,7 +49,7 @@ export default function VisitSection() {
     <section
       id="visit"
       ref={ref}
-      className="bg-gradient-to-b from-[#fff7f8] via-slate-50 to-white py-16 md:py-20 lg:py-24"
+      className="bg-gradient-to-b from-[#fff7f8] pt-5 via-slate-50 to-white mt-16 md:mt-20"
     >
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
 
@@ -58,7 +58,7 @@ export default function VisitSection() {
           variants={cardVariants}
           initial="hidden"
           animate={controls}
-          className="grid lg:grid-cols-[1.2fr,0.9fr] gap-10 lg:gap-14 items-center mb-16 lg:mb-20"
+          className="grid lg:grid-cols-[1.2fr,0.9fr] gap-10 lg:gap-12 items-center mb-8 lg:mb-12"
         >
           {/* Left: text */}
           <div>
@@ -112,10 +112,10 @@ export default function VisitSection() {
                 <span className="text-lg">🌸</span>
               </div>
               <div>
-                <p className="text-xs font-semibold tracking-wide text-rose-500 uppercase">
+                <p className="text-xs md:text-lg font-semibold tracking-wide text-rose-500 uppercase">
                   {t.visit?.whyJoinLabel || "Why join?"}
                 </p>
-                <p className="text-sm text-slate-700">
+                <p className=" text-sm md:text-base text-slate-700">
                   {t.visit?.whyJoinText ||
                     "Learn why attending Mama + Baby Expo could be the most rewarding choice for you and your child."}
                 </p>
@@ -128,11 +128,11 @@ export default function VisitSection() {
             >
               <div className="flex items-center gap-2 mb-2">
                 <span className="text-xl">🧸</span>
-                <p className="text-xs font-semibold text-slate-700 uppercase tracking-wide">
+                <p className="text-xs md:text-lg font-semibold text-slate-700 uppercase tracking-wide">
                   {t.visit?.latestProducts || "Latest products"}
                 </p>
               </div>
-              <p className="text-xs text-slate-600">
+              <p className="text-sm md:text-base text-slate-600">
                 {t.visit?.latestProductsDesc ||
                   "Explore new baby gear, wellness products, and smart parenting tech in one place."}
               </p>
@@ -144,11 +144,11 @@ export default function VisitSection() {
             >
               <div className="flex items-center gap-2 mb-2">
                 <span className="text-xl">🎓</span>
-                <p className="text-xs font-semibold text-slate-700 uppercase tracking-wide">
+                <p className="text-xs md:text-lg  font-semibold text-slate-700 uppercase tracking-wide">
                   {t.visit?.expertSessions || "Expert sessions"}
                 </p>
               </div>
-              <p className="text-xs text-slate-600">
+              <p className="text-sm md:text-base text-slate-600">
                 {t.visit?.expertSessionsDesc ||
                   "Join workshops and seminars led by maternity, baby care, and family wellness specialists."}
               </p>
@@ -174,7 +174,7 @@ export default function VisitSection() {
             <h3 className="text-lg font-medium text-[#081a58] mb-1">
               {t.visit?.eventDetails || "Event Details"}
             </h3>
-            <p className="text-xs text-slate-600">
+            <p className="text-sm md:text-base text-slate-600">
               {t.visit?.eventDetailsIntro || "Plan your visit"}
             </p>
           </div>
@@ -186,9 +186,9 @@ export default function VisitSection() {
             <div className="w-8 h-8 bg-[#081a58]/5 rounded-lg flex items-center justify-center mb-2 border border-[#081a58]/20 group-hover/card:bg-[#EA6677]/10">
               <span className="text-base text-[#081a58] group-hover/card:text-[#EA6677]">📍</span>
             </div>
-            <h4 className="text-sm font-medium text-[#081a58] mb-1.5">{t.visit?.location}</h4>
-            <p className="text-sm text-slate-700">The Arena Kuwait</p>
-            <p className="text-xs text-slate-600 mt-1">360 Mall, South Surra</p>
+            <h3 className="text-sm md:text-md  font-medium text-[#081a58] mb-1.5">{t.visit?.location}</h3>
+            <p className="text-sm md:text-base font-semibold text-slate-700">The Arena Kuwait</p>
+            <p className="text-xs md:text-sm  text-slate-600 mt-1">360 Mall, South Surra</p>
           </div>
 
          
@@ -198,15 +198,15 @@ export default function VisitSection() {
     <div className="w-8 h-8 bg-[#081a58]/5 rounded-lg flex items-center justify-center mb-2 border border-[#081a58]/20 group-hover/card:bg-[#EA6677]/10">
       <span className="text-base text-[#081a58] group-hover/card:text-[#EA6677]">📅</span>
     </div>
-    <h4 className="text-sm font-medium text-[#081a58] mb-1.5">{t.visit?.dateTime}</h4>
-    <p className="text-sm text-slate-700 mb-2">30 Apr – 2 May 2026</p>
-    <div className="flex items-center gap-1 text-xs text-emerald-600 font-mono bg-emerald-50 px-2 py-1 rounded-full">
-      Starts In:
+    <h3 className="text-sm md:text-md  font-medium text-[#081a58] mb-1.5">{t.visit?.dateTime}</h3>
+    <p className="text-sm md:text-base text-slate-700 mb-2">30 Apr – 2 May 2026</p>
+    <div className="flex items-center gap-1 text-sm md:text-basefont-semibold text-emerald-600 font-mono bg-emerald-50 px-1 py-1 rounded-full">
+      {t.visit?.startsIn || "Starts In: "}
       <span>{countdown.days}d</span>
       <span>{countdown.hours.toString().padStart(2, '0')}h</span>
       <span>{countdown.minutes.toString().padStart(2, '0')}m</span>
     </div>
-    <p className="text-xs text-slate-500 mt-1">10AM–10PM daily</p>
+    <p className="text-sm md:text-md text-slate-500 mt-1">{t.visit?.eventTiming || "10AM–10PM daily" }</p>
   </div>
 ) : null}
 
@@ -218,9 +218,9 @@ export default function VisitSection() {
                 <span className="text-lg text-emerald-600">🎫</span>
               </div>
               <div className="flex-1">
-                <h4 className="text-sm font-medium text-[#081a58] mb-1">{t.visit?.entry}</h4>
-                <p className="text-emerald-700 font-medium text-sm">{t.visit?.freeForAllVisitors || "Free"}</p>
-                <p className="text-xs text-slate-600">{t.visit?.noTickets}</p>
+                <h4 className="text-sm md:text-md font-medium text-[#081a58] mb-1">{t.visit?.entry}</h4>
+                <p className="text-emerald-700 font-medium text-sm text-sm md:text-base">{t.visit?.freeForAllVisitors || "Free"}</p>
+                <p className="text-sm md:text-md text-slate-600">{t.visit?.noTickets}</p>
               </div>
             </div>
           </div>
@@ -233,9 +233,9 @@ export default function VisitSection() {
   initial="hidden"
   animate={controls}
   whileHover={{ y: -4 }}
-  className="bg-white/90 backdrop-blur-sm rounded-2xl shadow-md hover:shadow-xl border border-slate-100 hover:border-[#EA6677]/40 p-7 flex flex-col gap-4 group transition-all duration-300 h-full"
+  className="bg-white/90 backdrop-blur-sm rounded-2xl shadow-md hover:shadow-xl border border-slate-100 hover:border-[#EA6677]/40 p-7 flex flex-col gap-3 group transition-all duration-300 h-full"
 >
-  <div className="flex items-center justify-between pb-3 border-b border-slate-200/60">
+  <div className="flex items-center justify-between pb-2 border-b border-slate-200/60">
     <h4 className="text-lg font-semibold text-[#081a58]">
       {t.visit?.accessibility || "Accessibility"}
     </h4>
@@ -247,41 +247,41 @@ export default function VisitSection() {
         const venueUrl = "https://www.google.com/maps/dir/?api=1&destination=29.266854,47.993997&travelmode=driving";
         window.open(venueUrl, '_blank', 'noopener,noreferrer');
       }}
-      className="text-xs font-medium text-[#081a58] hover:text-[#EA6677] flex items-center gap-1 px-3 py-1.5 rounded-lg border border-[#081a58]/30 hover:border-[#EA6677]/50 hover:bg-[#EA6677]/5 transition-all duration-200 cursor-pointer select-none"
+      className="text-xs md:text-[.9rem] text-[#081a58] hover:text-[#EA6677] flex items-center gap-1 px-3 py-1.5 rounded-lg border border-[#081a58]/30 hover:border-[#EA6677]/50 hover:bg-[#EA6677]/5 transition-all duration-200 cursor-pointer select-none"
     >
       {t.visit?.openMaps || "Open Maps"} <span>↗</span>
     </motion.button>
   </div>
 
-  <p className="text-xs text-slate-600 leading-relaxed">
+  <p className="text-sm md:text-base text-slate-600 leading-relaxed">
     {t.visit?.accessibilityIntro ||
       "Easily reach the venue with convenient parking, drop‑off points, and fully accessible facilities for families with strollers."}
   </p>
 
-  <div className="space-y-3 flex-1 mt-2">
+  <div className="space-y-2 flex-1 mt-2">
     <div className="flex items-start gap-2.5 p-3 rounded-lg border border-slate-100/50 hover:border-[#EA6677]/40 hover:bg-[#EA6677]/3 group/item transition-all duration-200">
-      <div className="w-8 h-8 bg-[#081a58]/5 rounded-md flex items-center justify-center mt-0.5 border border-[#081a58]/20 group-hover/item:bg-[#EA6677]/10 group-hover/item:border-[#EA6677]/30">
-        <span className="text-sm text-[#081a58] group-hover/item:text-[#EA6677]">🚗</span>
+      <div className="w-10 h-10 bg-[#081a58]/5 rounded-md flex items-center justify-center mt-0.5 border border-[#081a58]/20 group-hover/item:bg-[#EA6677]/10 group-hover/item:border-[#EA6677]/30">
+        <span className="text-lg text-[#081a58] group-hover/item:text-[#EA6677]">🚗</span>
       </div>
-      <div className="text-xs">
+      <div className="text-xs md:text-[.9rem]">
         <p className="font-medium text-slate-800">
           {t.visit?.parking || "Parking"}
         </p>
-        <p className="text-xs text-slate-600">
+        <p className="text-xs md:text-md text-slate-600">
           {t.visit?.parkingDetail || "360 Mall multistory parking"}
         </p>
       </div>
     </div>
 
     <div className="flex items-start gap-2.5 p-3 rounded-lg border border-slate-100/50 hover:border-[#EA6677]/40 hover:bg-[#EA6677]/3 group/item transition-all duration-200">
-      <div className="w-8 h-8 bg-[#081a58]/5 rounded-md flex items-center justify-center mt-0.5 border border-[#081a58]/20 group-hover/item:bg-[#EA6677]/10 group-hover/item:border-[#EA6677]/30">
-        <span className="text-sm text-[#081a58] group-hover/item:text-[#EA6677]">🚪</span>
+      <div className="w-10 h-10 bg-[#081a58]/5 rounded-md flex items-center justify-center mt-0.5 border border-[#081a58]/20 group-hover/item:bg-[#EA6677]/10 group-hover/item:border-[#EA6677]/30">
+        <span className="text-lg text-[#081a58] group-hover/item:text-[#EA6677]">🚪</span>
       </div>
-      <div className="text-xs">
+      <div className="text-xs md:text-[.9rem]">
         <p className="font-medium text-slate-800">
           {t.visit?.dropOff || "Drop‑off"}
         </p>
-        <p className="text-xs text-slate-600">
+        <p className="text-xs md:text-md text-slate-600">
           {t.visit?.dropOffDetail || "Dedicated drop‑off near Grand Hyatt entrance"}
         </p>
       </div>
@@ -362,7 +362,7 @@ export default function VisitSection() {
           initial={{ opacity: 0, y: 20 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ delay: 0.3 }}
-          className="grid md:grid-cols-2 gap-8 lg:gap-12 mb-16 max-w-4xl mx-auto"
+          className="grid md:grid-cols-2 gap-8 lg:gap-10 mb-16 max-w-4xl mx-auto"
         >
           <div>
             <div className="flex items-center gap-3 mb-4 pb-3 border-b border-slate-200/50">
@@ -373,7 +373,7 @@ export default function VisitSection() {
                 {t.visit?.specialFeatures || "What You’ll Experience"}
               </h4>
             </div>
-            <div className="space-y-2 text-sm text-slate-700">
+            <div className="space-y-2 text-sm  md:text-base text-slate-700">
               <p>
                 {t.visit?.familyFriendly ||
                   "A warm, family‑friendly environment designed for parents, babies, and little ones."}
@@ -398,7 +398,7 @@ export default function VisitSection() {
                 {t.visit?.additionalInfo || "Good to Know"}
               </h4>
             </div>
-            <div className="space-y-2 text-sm text-slate-700">
+            <div className="space-y-2 text-sm md:text-base text-slate-700">
               <p>
                 {t.visit?.securityScreening ||
                   "Secure, family‑safe environment with standard entry screening."}

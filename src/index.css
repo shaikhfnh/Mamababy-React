@@ -50,6 +50,17 @@ html {
 section {
   scroll-margin-top: 200px; /* desktop navbar height */
 }
+.wp-site-blocks button:focus,
+.wp-site-blocks a:focus,
+.wp-site-blocks div:focus {
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+:where(.wp-site-blocks *:focus) {
+  outline: none !important;
+  box-shadow: none !important;
+}
 
 @media screen and (max-width: 768px) {
   section {

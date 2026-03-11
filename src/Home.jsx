@@ -16,6 +16,7 @@ import { useLanguage } from "./context/LanguageContext";
 import Benefits from "./components/Benefits";
 import BookBoothSection from "./components/BookBoothSection";
 import InstagramSection from "./components/InstagramSection";
+import Footer from "./components/Footer";
 
 const Home = () => {
   const [acf, setAcf] = useState(null);
@@ -174,6 +175,8 @@ const Home = () => {
   }, [scrollToHash, isHomePage]);
 
   // ---------------- FETCH WORDPRESS DATA ----------------
+  // "build": "vite build && mv react-build/.vite/manifest.json react-build/manifest.json",for mac
+
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -200,7 +203,7 @@ const Home = () => {
   return (
     <div className="bg-white h-full w-full scroll-smooth">
       <Navbar />
-      <div className="mt-20">
+      <div className="md:mt-20 mt-16">
       <HeroSlider heroImages={acf.hero_images} />
       </div>
         
@@ -306,6 +309,8 @@ const Home = () => {
       >
         <InstagramSection />
       </motion.section>
+<Footer data={acf} />
+      
     </div>
   );
 };

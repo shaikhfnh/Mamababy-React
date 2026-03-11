@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "vite build && mv react-build/.vite/manifest.json react-build/manifest.json",
+    "build": "vite build && move react-build\\.vite\\manifest.json react-build\\manifest.json",
     "lint": "eslint .",
     "preview": "vite preview"
   },

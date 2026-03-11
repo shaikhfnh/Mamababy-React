@@ -145,7 +145,7 @@ export default function CategoriesSection({ data }) {
                     transition={{ type: "spring", stiffness: 300 }}
                   />
 
-                  <span className="md:text-[.7rem] text-[10px] md:font-semibold text-center leading-tight">
+                  <span className="md:text-[13px] text-[12px] md:font-semibold text-center leading-tight">
                     {item.title}
                   </span>
                 </motion.button>

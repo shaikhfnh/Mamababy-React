@@ -47,6 +47,18 @@
     "file": "assets/LOGO-D9jC7W-J.png",
     "src": "src/assets/LOGO.png"
   },
+  "src/assets/footer/fouz.png": {
+    "file": "assets/fouz-ZqD4D6iz.png",
+    "src": "src/assets/footer/fouz.png"
+  },
+  "src/assets/footer/ixir.png": {
+    "file": "assets/ixir-CdeGN74A.png",
+    "src": "src/assets/footer/ixir.png"
+  },
+  "src/assets/footer/mizaamiyat.png": {
+    "file": "assets/mizaamiyat-DX8bCL08.png",
+    "src": "src/assets/footer/mizaamiyat.png"
+  },
   "src/assets/juman-bold.ttf": {
     "file": "assets/juman-bold-CfmSWe00.ttf",
     "src": "src/assets/juman-bold.ttf"
@@ -56,12 +68,12 @@
     "src": "src/assets/juman-normal.ttf"
   },
   "src/main.jsx": {
-    "file": "assets/main-CXUpZAa6.js",
+    "file": "assets/main-iMbV7i_r.js",
     "name": "main",
     "src": "src/main.jsx",
     "isEntry": true,
     "css": [
-      "assets/main-8qTHse8Y.css"
+      "assets/main-DxlCf2xU.css"
     ],
     "assets": [
       "assets/LOGO-D9jC7W-J.png",
@@ -76,6 +88,9 @@
       "assets/LifestyleHome-G9wdrEyZ.png",
       "assets/ParentingServices-DS1dDCoh.png",
       "assets/TechforFamilies-Ct43HvKr.png",
+      "assets/fouz-ZqD4D6iz.png",
+      "assets/ixir-CdeGN74A.png",
+      "assets/mizaamiyat-DX8bCL08.png",
       "assets/juman-normal-3I0buQVk.ttf",
       "assets/juman-bold-CfmSWe00.ttf"
     ]
