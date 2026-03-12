@@ -8,7 +8,10 @@ export default {
   visiting: 'زيارة المعرض',
   exhibitorslist2025 : 'قائمة المشاركين ٢٠٢٥',
   news: "أحدث الأخبار -",
-
+  websiteRights:"معرض ماما+بيبي بإدارة FEC. جميع الحقوق محفوظة.",
+  fouzTitle:"نصنع التجارب – نبني الثقة",
+  fouzDescription:"تمثل شركة فوز إكسبو (FEC) منارة للتميز في مجال تنظيم المعارض والمناسبات.",
+  exposTitle:"اطلع على مجموعة معارضنا",
   visit: {
     planYourVisit: "خطط لزيارتك",
     mamaBabyExpo2026: "معرض ماما + بيبي 2026",

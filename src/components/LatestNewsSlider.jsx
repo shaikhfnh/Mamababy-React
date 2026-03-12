@@ -10,32 +10,35 @@ export default function LatestNewsSlider({ data }) {
   const [isHovered, setIsHovered] = useState(false);
   const intervalRef = useRef(null);
 
-  // ✅ SAFE BUILD USING useMemo
+  
+
+  /* ================= BUILD NEWS ITEMS ================= */
+
   const newsItems = useMemo(() => {
-    if (!data) return [];
+    if (!data?.news_collection || !Array.isArray(data.news_collection)) return [];
 
-    const items = [];
-    let i = 1;
+    return data.news_collection.map((item, i) => ({
+      id: i,
+      title: getLocalizedField(item, "heading", language),
+      description: getLocalizedField(item, "description", language),
 
-    while (data?.[`news_${i}`]) {
-      items.push({
-        id: i,
-        title: getLocalizedField(data, `news_${i}`, language),
-        description: getLocalizedField(data, `news_description_${i}`, language),
-        image: data?.[`news_image_${i}`] || "",
-      });
-      i++;
-    }
+      // image can be ID or URL
+      image:
+        typeof item.image === "string"
+          ? item.image
+          : item?.image?.url || "",
+    }));
+  }, [data.news_collection, language]);
 
-    return items;
-  }, [data, language]);
+  /* ================= PREVENT INDEX OVERFLOW ================= */
 
-  // ✅ Prevent index overflow when data changes
   useEffect(() => {
     if (index >= newsItems.length) {
       setIndex(0);
     }
-  }, [newsItems.length]);
+  }, [newsItems.length, index]);
+
+  /* ================= SLIDE CONTROLS ================= */
 
   const nextSlide = () => {
     if (!newsItems.length) return;
@@ -47,23 +50,31 @@ export default function LatestNewsSlider({ data }) {
     setIndex((prev) => (prev - 1 + newsItems.length) % newsItems.length);
   };
 
-  // ✅ Auto-slide safe
+  /* ================= AUTO SLIDE ================= */
+
   useEffect(() => {
     if (isHovered || newsItems.length === 0) return;
 
-    intervalRef.current = setInterval(nextSlide, 5000);
+    intervalRef.current = setInterval(() => {
+      nextSlide();
+    }, 5000);
+
     return () => clearInterval(intervalRef.current);
   }, [isHovered, newsItems.length]);
 
-  // ✅ If no data yet — render nothing
+  /* ================= SAFETY ================= */
+
   if (!data || newsItems.length === 0) return null;
 
   const currentItem = newsItems[index];
 
+  /* ================= UI ================= */
+
   return (
     <section className="w-full bg-[#e8dfd6] py-12 md:py-16 px-4 md:px-10 overflow-hidden">
       <div className="max-w-7xl mx-auto">
-        
+
+        {/* SECTION HEADING */}
         <motion.div
           initial={{ opacity: 0, y: 40 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -79,7 +90,10 @@ export default function LatestNewsSlider({ data }) {
           onMouseEnter={() => setIsHovered(true)}
           onMouseLeave={() => setIsHovered(false)}
         >
+
+          {/* SLIDER */}
           <div className="relative h-[420px] md:h-[520px] rounded-3xl overflow-hidden shadow-2xl">
+
             <AnimatePresence mode="wait">
               <motion.div
                 key={currentItem.id}
@@ -90,26 +104,34 @@ export default function LatestNewsSlider({ data }) {
                 className="absolute inset-0"
               >
                 <div className="w-full h-full relative group cursor-pointer">
+
                   <img
                     src={currentItem.image}
                     alt={currentItem.title}
                     className="w-full h-full object-cover transition-transform duration-[7000ms] group-hover:scale-110"
                   />
+
                   <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/40 to-transparent" />
+
                   <div className="absolute bottom-10 left-8 right-8 md:left-16 md:right-16">
+
                     <div className="text-white text-2xl md:text-4xl font-semibold leading-snug max-w-3xl">
                       {currentItem.title}
                     </div>
+
                     <div className="text-white/80 mt-4 text-sm md:text-base max-w-2xl">
                       {currentItem.description}
                     </div>
+
                   </div>
+
                 </div>
               </motion.div>
             </AnimatePresence>
+
           </div>
 
-          {/* Buttons */}
+          {/* PREVIOUS BUTTON */}
           <button
             onClick={prevSlide}
             className="absolute top-1/2 -translate-y-1/2 left-0 md:left-6 bg-white/70 backdrop-blur-md hover:bg-white text-black md:w-11 md:h-11 w-8 h-8 rounded-full flex items-center justify-center shadow-xl transition"
@@ -117,6 +139,7 @@ export default function LatestNewsSlider({ data }) {
             <GrPrevious />
           </button>
 
+          {/* NEXT BUTTON */}
           <button
             onClick={nextSlide}
             className="absolute top-1/2 -translate-y-1/2 right-0 md:right-6 bg-white/70 backdrop-blur-md hover:bg-white text-black md:w-11 md:h-11 w-8 h-8 rounded-full flex items-center justify-center shadow-xl transition"
@@ -124,8 +147,9 @@ export default function LatestNewsSlider({ data }) {
             <GrNext />
           </button>
 
-          {/* Indicators */}
+          {/* INDICATORS */}
           <div className="flex justify-center mt-8 gap-3">
+
             {newsItems.map((_, i) => (
               <button
                 key={i}
@@ -135,7 +159,9 @@ export default function LatestNewsSlider({ data }) {
                 }`}
               />
             ))}
+
           </div>
+
         </div>
       </div>
     </section>

@@ -7,6 +7,10 @@ export default {
   book: "Book Your Booth",
   news: "Latest News",
   exhibitorslist2025:'Exhibitors List 2025',
+  websiteRights:"MAMA+BABY EXPO Powered by FEC. All Rights Reserved",
+  fouzTitle:"CREATING EXPERIENCES BUILDING TRUST",
+  fouzDescription:"Fouz Expo Company (FEC) stands as a beacon of excellence in the realm of event organization.",
+  exposTitle:"EXPERIENCE OUR RANGE OF EXPOS BELOW",
   visit: {
     planYourVisit: "Plan Your Visit",
     mamaBabyExpo2026: "Mama + Baby Expo 2026",

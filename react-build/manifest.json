@@ -68,15 +68,18 @@
     "src": "src/assets/juman-normal.ttf"
   },
   "src/main.jsx": {
-    "file": "assets/main-iMbV7i_r.js",
+    "file": "assets/main-Da82vmk3.js",
     "name": "main",
     "src": "src/main.jsx",
     "isEntry": true,
     "css": [
-      "assets/main-DxlCf2xU.css"
+      "assets/main-QZCvEn44.css"
     ],
     "assets": [
       "assets/LOGO-D9jC7W-J.png",
+      "assets/fouz-ZqD4D6iz.png",
+      "assets/ixir-CdeGN74A.png",
+      "assets/mizaamiyat-DX8bCL08.png",
       "assets/WellnessNutrition-Bqz1sJFU.png",
       "assets/MaternityProducts-BfYL5c_e.png",
       "assets/ChildSafetyMonitoring-cbUIPSCt.png",
@@ -88,9 +91,6 @@
       "assets/LifestyleHome-G9wdrEyZ.png",
       "assets/ParentingServices-DS1dDCoh.png",
       "assets/TechforFamilies-Ct43HvKr.png",
-      "assets/fouz-ZqD4D6iz.png",
-      "assets/ixir-CdeGN74A.png",
-      "assets/mizaamiyat-DX8bCL08.png",
       "assets/juman-normal-3I0buQVk.ttf",
       "assets/juman-bold-CfmSWe00.ttf"
     ]

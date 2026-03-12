@@ -4,27 +4,16 @@ import { useLanguage } from "../context/LanguageContext";
 import { useTranslation } from "../hooks/useTranslation";
 import logo from "@assets/LOGO.png";
 import { getPageById } from "../api/wordpress";
+import { useData } from "../context/DataContext";
 
 export default function Navbar() {
-  const [acf, setAcf] = useState(null);
   const [isOpen, setIsOpen] = useState(false);
   const [mobileExhibitOpen, setMobileExhibitOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const { language, setLanguage } = useLanguage();
   const t = useTranslation();
-
-  // Fetch ACF data
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const page = await getPageById();
-        setAcf(page.acf);
-      } catch (error) {
-        console.error("Failed to fetch ACF data:", error);
-      }
-    };
-    fetchData();
-  }, []);
+  const {data,loading} = useData();
+ 
 
   useEffect(() => {
     const handleScroll = () => {
@@ -44,11 +33,11 @@ export default function Navbar() {
 
   // 🔥 FIXED navLinks - CONSISTENT Arabic path logic
   const navLinks = useMemo(() => {
-    if (!acf?.navbar_items || !Array.isArray(acf.navbar_items)) {
+    if (!data?.navbar_items || !Array.isArray(data.navbar_items)) {
       return [];
     }
 
-    return acf.navbar_items.map((item, index) => {
+    return data.navbar_items.map((item, index) => {
       const dropdown = item.dropdown === "true";
       const isPage = item.is_page === "true";
       
@@ -111,7 +100,7 @@ export default function Navbar() {
           : []
       };
     });
-  }, [acf, language]);
+  }, [data, language]);
 
   // 🔥 FIXED handleNavClick - URL ERROR SOLVED
   const handleNavClick = useCallback((target) => {
@@ -229,11 +218,21 @@ export default function Navbar() {
 
   const bookText = getTranslation('book') || "Book Now";
 
+  const isRTL = language === "ar";
+
+const menuAnimation = {
+  initial: { x: isRTL ? "-100%" : "100%" },
+  animate: { x: 0 },
+  exit: { x: isRTL ? "-100%" : "100%" }
+};
+
+const menuPosition = isRTL ? "left-0" : "right-0";
+
   return (
     <>
-      <nav className={`fixed top-0 md:pb-1 w-full z-50 transition-all duration-500 ${
+      <nav className={`fixed top-0 md:pb-1 w-full z-50 no-underline border-0! shadow-xl transition-all duration-500 ${
         scrolled 
-          ? "bg-white/40 backdrop-blur-xl shadow-xl border-b border-gray-100" 
+          ? "bg-white/40 backdrop-blur-xl  " 
           : "bg-white/80 backdrop-blur-lg"
       }`}>
         <div className="mx-auto px-4 sm:px-6 lg:px-8 h-16 lg:h-20 flex items-center justify-between">
@@ -249,7 +248,7 @@ export default function Navbar() {
               <div key={i} className="relative group">
                 <motion.button
                   onClick={() => handleNavClick(link)}
-                  className="flex items-center no-underline cursor-pointer gap-1 px-3 py-2 text-gray-800 font-medium text-sm lg:text-base xl:text-lg relative transition-all duration-300 hover:text-[#091C41]"
+                  className="flex items-center capitalize no-underline cursor-pointer gap-1 px-3 py-2 text-gray-800 font-medium text-sm lg:text-base xl:text-lg relative transition-all duration-300 hover:text-[#091C41]"
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
                 >
@@ -271,7 +270,7 @@ export default function Navbar() {
                         key={j}
                         onClick={() => handleNavClick(item)}
                         whileHover={{ x: 4 }}
-                        className="w-full text-left px-6 py-3 text-sm font-medium text-gray-700 hover:bg-gray-50/80 hover:text-[#091C41] transition-all duration-200 rounded-lg hover:shadow-sm border-r-4 border-transparent hover:border-[#091C41]"
+                        className={`w-full ${language === 'en' ? "text-left" : "text-right"} px-6 py-3 text-sm font-medium text-gray-700 hover:bg-gray-50/80 hover:text-[#091C41] transition-all duration-200 rounded-lg hover:shadow-sm border-r-4 border-transparent hover:border-[#091C41]`}
                       >
                         {item.label}
                       </motion.button>
@@ -335,14 +334,14 @@ export default function Navbar() {
               className="fixed inset-0 bg-black/50 backdrop-blur-sm z-40 lg:hidden"
               onClick={closeMobileMenu}
             />
-            <motion.div
-              initial={{ x: "100%" }}
-              animate={{ x: 0 }}
-              exit={{ x: "100%" }}
-              transition={{ type: "spring", stiffness: 300, damping: 30 }}
-              className="fixed top-0 right-0 h-full w-80 max-w-[90vw] bg-white/95 backdrop-blur-2xl shadow-2xl z-50 lg:hidden flex flex-col pt-6 px-6"
-            >
-              <div className="flex absolute right-5 top-0 justify-end mb-6 pt-4">
+         <motion.div
+  initial={menuAnimation.initial}
+  animate={menuAnimation.animate}
+  exit={menuAnimation.exit}
+  transition={{ type: "spring", stiffness: 300, damping: 30 }}
+  className={`fixed top-0 ${menuPosition} h-full w-80 max-w-[90vw] bg-white/95 backdrop-blur-2xl shadow-2xl z-50 lg:hidden flex flex-col pt-6 px-6`}
+>
+              <div className={`flex absolute ${language === 'en' ? "right-5" : "left-5"} top-0 justify-end mb-6 pt-4`}>
                 <motion.button
                   whileTap={{ scale: 0.95, rotate: 90 }}
                   onClick={closeMobileMenu}

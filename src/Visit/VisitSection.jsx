@@ -1,12 +1,15 @@
 import { useEffect, useRef, useState } from "react";
 import { motion, useInView, useAnimation } from "framer-motion";
 import { useTranslation } from "../hooks/useTranslation";
+import { useData } from "../context/DataContext";
 
 export default function VisitSection() {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-50px" });
   const controls = useAnimation();
   const t = useTranslation();
+  const {data,loading} = useData();
+  
 
   useEffect(() => {
     if (isInView) controls.start("visible");

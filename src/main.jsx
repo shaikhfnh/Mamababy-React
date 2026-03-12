@@ -1,50 +1,42 @@
-// src/main.jsx
-import { StrictMode } from 'react'
-import { createRoot } from 'react-dom/client'
-import './index.css'
-import Layout from './Layout.jsx'
-import { LanguageProvider } from './context/LanguageContext.jsx'
-import Navbar from './components/Navbar.jsx'
-import VisitLayout from './Visit/Layout.jsx'
+import { StrictMode } from "react";
+import { createRoot } from "react-dom/client";
+import "./index.css";
 
-document.addEventListener('DOMContentLoaded', () => {
+import Layout from "./Layout.jsx";
+import Navbar from "./components/Navbar.jsx";
+import VisitLayout from "./Visit/Layout.jsx";
+import Footer from "./components/Footer.jsx";
 
-  
+import { LanguageProvider } from "./context/LanguageContext.jsx";
+import { DataProvider } from "./context/DataContext.jsx";
 
-  // #root → Layout (your existing pages)
-  const rootContainers = document.querySelectorAll('#root');
-  rootContainers.forEach(container => {
+function renderReact(selector, Component) {
+  const containers = document.querySelectorAll(selector);
+
+  containers.forEach((container) => {
     const root = createRoot(container);
+
     root.render(
       <StrictMode>
         <LanguageProvider>
-          <Layout />
+          <DataProvider>
+            <Component />
+          </DataProvider>
         </LanguageProvider>
       </StrictMode>
     );
   });
+}
 
+function initReact() {
+  renderReact("#root", Layout);
+  renderReact("#root-navbar", Navbar);
+  renderReact("#root-visit", VisitLayout);
+  renderReact("#root-footer", Footer);
+}
 
-  const Visitcontainers = document.querySelectorAll('#root-visit');
-  Visitcontainers.forEach(container => {
-    const root = createRoot(container);
-    root.render(
-      <StrictMode>
-        <LanguageProvider>
-          <VisitLayout />
-        </LanguageProvider>
-      </StrictMode>
-    );
-  });
-  const NavbarContainers = document.querySelectorAll('#root-navbar');
-  NavbarContainers.forEach(container => {
-    const root = createRoot(container);
-    root.render(
-      <StrictMode>
-        <LanguageProvider>
-          <Navbar />
-        </LanguageProvider>
-      </StrictMode>
-    );
-  });
-});
+if (document.readyState === "loading") {
+  document.addEventListener("DOMContentLoaded", initReact);
+} else {
+  initReact();
+}
