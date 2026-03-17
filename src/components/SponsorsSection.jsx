@@ -46,7 +46,8 @@ export default function SponsorsSection({ data }) {
 
   const handleSponsorRedirect = () => {
   if (data?.sponsor_btn_link) {
-    window.location.href = data.sponsor_btn_link;
+    const link = getLocalizedField(data,"sponsor_btn_link",language)
+    window.location.href = link
   }
 };
   return (

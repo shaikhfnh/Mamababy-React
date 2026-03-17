@@ -72,7 +72,7 @@ const Home = () => {
 
   if (!data)
     return (
-      <div className="flex h-screen w-screen justify-center items-center">
+      <div className="flex h-screen w-screen justify-center items-center ">
         Loading... <span className="animate-spin"><LuLoaderCircle /></span>
       </div>
     );
@@ -128,12 +128,12 @@ const Home = () => {
         <LatestNewsSlider data={data} />
       </motion.section>
 
-      <motion.section id="instagram" initial="hidden" whileInView="visible" viewport={{ once: true }} variants={sectionAnimation}>
+      {/* <motion.section id="instagram" initial="hidden" whileInView="visible" viewport={{ once: true }} variants={sectionAnimation}>
         <InstagramSection />
-      </motion.section>
+      </motion.section> */}
 
       {/* Footer loaded last, scroll waits for it if hash=footer */}
-      <Footer />
+      {/* <Footer /> */}
     </div>
   );
 };

@@ -184,7 +184,7 @@ const handleSubmit = async (e) => {
 
   try {
     const response = await fetch(
-      "https://test.mamababyexpo.com/wp-json/expo/v1/booth-enquiry",
+      "https://www.mamababyexpo.com/wp-json/expo/v1/booth-enquiry",
       {
         method: "POST",
         headers: { "Content-Type": "application/json" },

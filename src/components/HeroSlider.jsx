@@ -107,7 +107,7 @@ export default function HeroSlider({ heroImages = [] }) {
             key={`slide-${index}`}
             src={currentSlide.image}
             alt={`Hero ${index + 1}`}
-            className="w-full h-full object-cover object-center brightness-95"
+            className="w-full h-full object-cover object-center "
             onClick={currentSlide.hasLink ? handleClick : undefined}
             style={{ 
               cursor: currentSlide.hasLink ? 'pointer' : 'default' 
@@ -121,8 +121,6 @@ export default function HeroSlider({ heroImages = [] }) {
           />
         </AnimatePresence>
 
-        {/* 🔥 Minimal gradient overlay */}
-        <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent pointer-events-none z-10" />
       </div>
 
       {/* 🔥 Hover controls only */}

@@ -359,7 +359,7 @@ const menuPosition = isRTL ? "left-0" : "right-0";
                     <motion.button
                       whileTap={{ scale: 0.98 }}
                       onClick={link.dropdown ? toggleMobileExhibit : () => handleNavClick(link)}
-                      className="w-full text-left py-3 px-4 text-lg font-semibold text-gray-800 hover:text-[#091C41] hover:bg-gray-50 rounded-xl transition-all duration-200 flex items-center justify-between group border-l-4 border-transparent hover:border-[#091C41]"
+                      className="w-full text-left py-3 px-4 text-lg capitalize font-semibold text-gray-800 hover:text-[#091C41] hover:bg-gray-50 rounded-xl transition-all duration-200 flex items-center justify-between group border-l-4 border-transparent hover:border-[#091C41]"
                     >
                       <span>{link.label}</span>
                       {link.dropdown && (

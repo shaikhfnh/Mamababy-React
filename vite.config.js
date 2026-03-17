@@ -6,7 +6,7 @@ import { resolve } from 'path';
 export default defineConfig({
   plugins: [react(), tailwindcss()],
   //  base: "/",
-  base: '/wp-content/themes/twentytwentyfive-child/react-build/', 
+    base: '/wp-content/themes/twentytwentyfive-child/react-build/', 
   build: {
     outDir: 'react-build',
     emptyOutDir: true,

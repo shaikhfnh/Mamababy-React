@@ -41,6 +41,14 @@ export default function Footer() {
     }
   };
 
+  // Inside Footer component, above return
+const expoLogos = [
+  { img: mirzam, link: "https://mirzaam.com/" },
+  { img: mirzaamiyat, link: "https://mirzaam.com/about-mirzaamiyat/" },
+  { img: ixir, link: "https://ixirexpo.com/" },
+  { img: logo, link: "https://www.mamababyexpo.com/" },
+];
+
   return (
     <footer id="contact" className="w-full overflow-hidden bg-[#E5E5E5]">
 
@@ -252,16 +260,19 @@ TEL: <a href={`tel:${contactNumber}`} className="text-md text-black">{contactNum
         >
           {t.fouzTitle}
         </motion.div>
+        <motion.a
+  href="https://fouz.com"  // Replace with actual Fouz URL
+  target="_blank"
+  rel="noopener noreferrer"
+  initial={{ opacity: 0, scale: 0.92 }}
+  whileInView={{ opacity: 1, scale: 1 }}
+  transition={{ duration: 0.6 }}
+  viewport={{ once: true }}
+  className="mx-auto h-20 mb-5 block"
+>
+  <img src={fouz} alt="Fouz Expo Company" className="w-full h-full object-contain" />
+</motion.a>
 
-        <motion.img
-          initial={{ opacity: 0, scale: 0.92 }}
-          whileInView={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.6 }}
-          viewport={{ once: true }}
-          src={fouz}
-          alt="Fouz Expo Company"
-          className="mx-auto h-20 mb-5"
-        />
 
         <div className="text-white/70 max-w-2xl mx-auto text-sm md:text-base">
          {t.fouzDescription}
@@ -273,23 +284,24 @@ TEL: <a href={`tel:${contactNumber}`} className="text-md text-black">{contactNum
       </div>
 
       {/* Expo Logos */}
-      <div className="md:py-8 py-5 md:max-w-7xl md:mx-auto grid gap-4 justify-center items-center place-content-center md:grid-cols-4 grid-cols-2 ">
-
-        {[mirzam, mirzaamiyat, ixir, logo].map((img, i) => (
-          <motion.div
-            key={i}
-            whileHover={{ scale: 1.05 }}
-            className={`md:h-[3.5rem] h-[3rem] w-full ${i === 0 ?" md:h-[4rem] ": ""} ${i === 2 ?" !h-[2.2rem]   ": ""} `}
-          >
-            <img
-              src={img}
-              className="w-full h-full object-contain px-2"
-            />
-          </motion.div>
-        ))}
-
-      </div>
-
+<div className="md:py-8 py-5 md:max-w-7xl md:mx-auto grid gap-4 justify-center items-center place-content-center md:grid-cols-4 grid-cols-2">
+  {expoLogos.map((item, i) => (
+    <motion.a
+      key={i}
+      href={item.link}
+      target="_blank"
+      rel="noopener noreferrer"
+      whileHover={{ scale: 1.05 }}
+      className={`md:h-[3.5rem] h-[3rem] w-full ${i === 0 ? "md:h-[4rem]" : ""} ${i === 2 ? "!h-[2.2rem]" : ""}`}
+    >
+      <img
+        src={item.img}
+        className="w-full h-full object-contain px-2"
+        alt={`Expo Logo ${i + 1}`}
+      />
+    </motion.a>
+  ))}
+</div>
     </footer>
   );
 }

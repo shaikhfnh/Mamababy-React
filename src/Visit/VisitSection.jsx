@@ -1,3 +1,415 @@
+// import { useEffect, useRef, useState } from "react";
+// import { motion, useInView, useAnimation } from "framer-motion";
+// import { useTranslation } from "../hooks/useTranslation";
+// import { useData } from "../context/DataContext";
+// import { getLocalizedField } from "../utils/getLocalizedField";
+// import { useLanguage } from "../context/LanguageContext";
+
+// export default function VisitSection() {
+//   const ref = useRef(null);
+//   const isInView = useInView(ref, { once: true, margin: "-50px" });
+//   const controls = useAnimation();
+//   const t = useTranslation();
+//   const { data, loading } = useData();
+//   const visit = data?.visit_page;
+
+//   const { language } = useLanguage();
+
+//   const [countdown, setCountdown] = useState({ days: 0, hours: 0, minutes: 0 });
+//   const [countdownLabel, setCountdownLabel] = useState(""); 
+//   const [showCountdown, setShowCountdown] = useState(false);
+
+//   const parseDMY = (dateStr, hour = 0, minute = 0) => {
+//     if (!dateStr) return null;
+//     const [dd, mm, yyyy] = dateStr.split("/").map(Number);
+//     return new Date(yyyy, mm - 1, dd, hour, minute);
+//   };
+
+//   // Countdown logic
+//   useEffect(() => {
+//     if (!visit?.event_details) return;
+
+//     const updateCountdown = () => {
+//       const now = new Date().getTime();
+
+//       const startDate = parseDMY(visit.event_details.start_date, 10, 0)?.getTime();
+//       const endDate = parseDMY(visit.event_details.end_date, 22, 0)?.getTime();
+
+//       let distance = 0;
+
+//       if (startDate && now < startDate) {
+//         distance = startDate - now;
+//         setCountdownLabel(t.visit?.startsIn || "Starts In:");
+//         setShowCountdown(true);
+//       } else if (startDate && endDate && now >= startDate && now < endDate) {
+//         distance = endDate - now;
+//         setCountdownLabel(t.visit?.endsIn || "Ends In:");
+//         setShowCountdown(true);
+//       } else {
+//         setShowCountdown(false);
+//         distance = 0;
+//       }
+
+//       const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+//       const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+//       const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+
+//       setCountdown({ days, hours, minutes });
+//     };
+
+//     updateCountdown();
+//     const timer = setInterval(updateCountdown, 30000);
+//     return () => clearInterval(timer);
+//   }, [visit, t]);
+
+//   const dateNotAmounced = !visit?.event_details?.is_date_announced;
+
+//   // Motion variants
+//   const cardVariants = {
+//     hidden: { opacity: 0, y: 25 },
+//     visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: "easeOut" } }
+//   };
+
+//   // Start animations only when in view and visit exists
+//   useEffect(() => {
+//     if (visit && isInView) controls.start("visible");
+//   }, [visit, isInView, controls]);
+
+//   // Guard for loading / undefined data
+//   if (loading || !visit) return null;
+
+//   return (
+//     <section
+//       id="visit"
+//       ref={ref}
+//       className="bg-gradient-to-b from-[#fff7f8] pt-5 via-slate-50 to-white mt-16 md:mt-20"
+//     >
+//       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+
+//         {/* Intro + main copy */}
+//         <motion.div
+//           variants={cardVariants}
+//           initial="hidden"
+//           animate={controls}
+//           className="grid lg:grid-cols-[1.2fr,0.9fr] gap-10 lg:gap-12 items-center mb-8 lg:mb-12"
+//         >
+//           {/* Left: text */}
+//           <div>
+//             <div className="inline-flex items-center gap-2 bg-white/80 shadow-sm rounded-full px-4 py-1.5 mb-4 border border-rose-100/70 backdrop-blur-sm">
+//               <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
+//               <p className="text-xs font-medium text-emerald-700">
+//                 {getLocalizedField(visit, 'tagline', language)}
+//               </p>
+//             </div>
+
+//             <h2 className="text-3xl md:text-4xl lg:text-5xl font-semibold text-[#081a58] leading-tight mb-4">
+//               {getLocalizedField(visit, 'herotitle', language)}
+//             </h2>
+
+//             {(visit.hero_subtitles || []).map((i, idx) => (
+//               <p key={idx} className="text-base md:text-lg text-slate-700 mb-4">
+//                 {getLocalizedField(i, 'description', language)}
+//               </p>
+//             ))}
+
+//             <div className="mt-6 flex flex-wrap items-center gap-3">
+//               <div className="flex flex-wrap items-center gap-2 text-xs md:text-sm text-slate-600">
+//                 {(visit.benefit_tags || []).map((i, idx) => (
+//                   <span key={idx} className="inline-flex items-center gap-1 px-3 py-1 rounded-full bg-white border border-slate-200/70">
+//                     <span>{i.emoji}</span>
+//                     <span> {getLocalizedField(i, 'title', language)}</span>
+//                   </span>
+//                 ))}
+//               </div>
+//             </div>
+//           </div>
+
+//           {/* Right: soft feature cards */}
+//           <div className="grid grid-cols-2 gap-4 mx-auto lg:ml-auto">
+//             {(visit.soft_feature_cards || []).map((i, index) => (
+//               <motion.div
+//                 key={i.id || index}
+//                 whileHover={{ y: -4 }}
+//                 className={`rounded-2xl bg-white/90 border border-rose-100/70 shadow-sm px-5 py-4 flex items-center gap-3 ${index === 0 ? "col-span-2" : ""}`}
+//               >
+//                 <div
+//                   className="w-10 h-10 flex items-center justify-center rounded-2xl"
+//                   style={
+//                     i?.color_code
+//                       ? {
+//                           backgroundColor: `${i.color_code}1A`,
+//                           borderColor: `${i.color_code}E6`,
+//                           border: "1px solid",
+//                         }
+//                       : {}
+//                   }
+//                 >
+//                   <span className="text-lg">{getLocalizedField(i, "emoji", language)}</span>
+//                 </div>
+//                 <div>
+//                   <p
+//                     className="text-xs md:text-lg font-semibold tracking-wide uppercase"
+//                     style={i?.color_code ? { color: i.color_code } : { color: "#081a58" }}
+//                   >
+//                     {getLocalizedField(i, "label", language)}
+//                   </p>
+//                   <p className="text-sm md:text-base text-slate-700">
+//                     {getLocalizedField(i, "text", language)}
+//                   </p>
+//                 </div>
+//               </motion.div>
+//             ))}
+//           </div>
+//         </motion.div>
+
+//         {/* Event + location + entry section */}
+//         <div className="grid lg:grid-cols-3 gap-5 lg:gap-7 mb-14">
+
+//           {/* Left side: event details */}
+//           <motion.div
+//             custom={0}
+//             variants={cardVariants}
+//             initial="hidden"
+//             animate={controls}
+//             whileHover={{ y: -2 }}
+//             className="lg:col-span-2 bg-white/95 backdrop-blur rounded-2xl border border-slate-200/60 p-5 md:p-6 transition-all duration-300 hover:shadow-lg"
+//           >
+//             {/* Event header */}
+//             <div className="flex items-start gap-3 mb-5 pb-4 border-b border-slate-200/60">
+//               <div className="w-10 h-10 flex items-center justify-center rounded-lg bg-[#081a58]/10 border border-[#081a58]/20 text-lg text-[#081a58] shrink-0">
+//                 {getLocalizedField(visit.event_details, 'event_icon', language)}
+//               </div>
+//               <div className="space-y-1">
+//                 <div className="text-base md:text-lg font-semibold text-[#081a58]">
+//                   {getLocalizedField(visit.event_details, 'eventdetails', language)}
+//                 </div>
+//                 <div className="text-sm md:text-[0.95rem] text-slate-600">
+//                   {getLocalizedField(visit.event_details, 'eventdetailsintro', language)}
+//                 </div>
+//               </div>
+//             </div>
+
+//             {/* Inner grid: date, location, entry */}
+//             <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-5">
+
+//               {/* Date */}
+//               <div className="md:col-span-2 rounded-2xl border border-slate-200 bg-gradient-to-br from-white to-slate-50 p-5 md:p-6 hover:shadow-md transition-all">
+//                 <div className="flex items-center gap-3 mb-4">
+//                   <div className="w-11 h-11 flex items-center justify-center rounded-xl bg-[#081a58]/5 border border-[#081a58]/20 text-lg text-[#081a58]">
+//                     {getLocalizedField(visit.event_details, 'date_emoji', language)}
+//                   </div>
+//                   <div className="flex flex-col">
+//                     <div className="text-sm md:text-base font-semibold text-[#081a58]">
+//                       {getLocalizedField(visit.event_details, 'datetime_heading', language)}
+//                     </div>
+//                     {showCountdown && (
+//                       <div className="text-xs md:text-sm text-slate-500">
+//                         {getLocalizedField(visit.event_details, 'event_timing', language)}
+//                       </div>
+//                     )}
+//                   </div>
+//                 </div>
+
+//                 {!visit.event_details.is_date_announced && (
+//                   <div className="inline-flex items-center text-xs font-semibold bg-amber-100 text-amber-700 px-3 py-1 rounded-full mb-3">
+//                     {getLocalizedField(visit.event_details, 'datenotfixed_title', language)}
+//                   </div>
+//                 )}
+
+//                 {showCountdown && (
+//                   <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 bg-emerald-50 border border-emerald-200 px-4 py-3 rounded-xl">
+//                     <div className="text-xs md:text-sm font-semibold text-emerald-700">
+//                       {countdownLabel}
+//                     </div>
+//                     <div className="flex items-center gap-2 md:gap-3 font-mono font-bold text-emerald-800 text-base md:text-lg">
+//                       <span>{countdown.days}d</span>
+//                       <span>{countdown.hours.toString().padStart(2, "0")}h</span>
+//                       <span>{countdown.minutes.toString().padStart(2, "0")}m</span>
+//                     </div>
+//                   </div>
+//                 )}
+//               </div>
+
+//               {/* Location */}
+//               <div className="rounded-2xl border border-slate-200 bg-white p-4 hover:shadow-sm transition-all">
+//                 <div className="flex items-start gap-3">
+//                   <div className="w-9 h-9 flex items-center justify-center rounded-lg bg-[#081a58]/5 border border-[#081a58]/20 text-base text-[#081a58] shrink-0">
+//                     {getLocalizedField(visit.event_details, 'location_emoji', language)}
+//                   </div>
+//                   <div className="space-y-1">
+//                     <div className="text-xs text-slate-500">
+//                       {getLocalizedField(visit.event_details, 'location', language)}
+//                     </div>
+//                     <div className="text-sm md:text-[0.95rem] font-semibold text-[#081a58] leading-tight">
+//                       {getLocalizedField(visit.event_details, 'locationname', language)}
+//                     </div>
+//                     <div className="text-xs text-slate-600">
+//                       {getLocalizedField(visit.event_details, 'locationdescription', language)}
+//                     </div>
+//                   </div>
+//                 </div>
+//               </div>
+
+//               {/* Entry */}
+//               <div className="rounded-2xl border border-emerald-200 bg-emerald-50 p-4 flex items-center justify-between hover:shadow-sm transition-all">
+//                 <div className="flex items-center gap-3">
+//                   <div className="w-9 h-9 flex items-center justify-center rounded-lg bg-emerald-100 border border-emerald-300 text-lg text-emerald-700">
+//                     {getLocalizedField(visit.event_details, 'entry_emoji', language)}
+//                   </div>
+//                   <div className="space-y-1">
+//                     <div className="text-xs text-slate-500">
+//                       {getLocalizedField(visit.event_details, 'entry', language)}
+//                     </div>
+//                     <div className="text-sm font-semibold text-emerald-700">
+//                       {getLocalizedField(visit.event_details, 'entry_description', language)}
+//                     </div>
+//                   </div>
+//                 </div>
+//                 <div className="text-[10px] md:text-xs font-semibold bg-emerald-100 text-emerald-700 px-2 py-1 rounded-full whitespace-nowrap">
+//                   {t.visit?.noTickets || "No Tickets"}
+//                 </div>
+//               </div>
+//             </div>
+//           </motion.div>
+
+//           {/* Right side: accessibility/location card */}
+//           <motion.div
+//             custom={1}
+//             variants={cardVariants}
+//             initial="hidden"
+//             animate={controls}
+//             whileHover={{ y: -3 }}
+//             className="bg-white/95 backdrop-blur rounded-2xl border border-slate-200 p-5 md:p-6 flex flex-col gap-4 transition-all hover:shadow-xl"
+//           >
+//             {/* Header */}
+//             <div className="flex items-center justify-between border-b border-slate-200 pb-3">
+//               <div className="text-base md:text-lg font-semibold text-[#081a58]">
+//                 {getLocalizedField(visit.location_card, 'heading', language)}
+//               </div>
+//             </div>
+
+//             {/* Intro */}
+//             <div className="text-sm md:text-[0.95rem] text-slate-600 leading-relaxed">
+//               {getLocalizedField(visit.location_card, 'introduction', language)}
+//             </div>
+
+//             {/* Features */}
+//             <div className="flex flex-col gap-2">
+//               {(visit.location_card?.features || []).map((i, idx) => (
+//                 <div
+//                   key={i.id || idx}
+//                   className="flex items-start gap-3 p-3 rounded-xl border border-slate-100 hover:border-[#EA6677]/40 hover:bg-[#EA6677]/5 transition"
+//                 >
+//                   <div className="w-9 h-9 flex items-center justify-center rounded-md bg-[#081a58]/5 border border-[#081a58]/20 text-base text-[#081a58]">
+//                     {getLocalizedField(i, 'emoji', language)}
+//                   </div>
+//                   <div>
+//                     <div className="text-xs md:text-sm font-medium text-slate-800">
+//                       {getLocalizedField(i, 'heading', language)}
+//                     </div>
+//                     <div className="text-xs text-slate-600">
+//                       {getLocalizedField(i, 'description', language)}
+//                     </div>
+//                   </div>
+//                 </div>
+//               ))}
+//             </div>
+//           </motion.div>
+//         </div>
+
+//         {/* Map section */}
+//         <div className="mt-6 rounded-2xl border border-slate-200 bg-white overflow-hidden shadow-sm hover:shadow-md transition-all">
+//           <div className="flex items-center justify-between px-4 py-3 border-b border-slate-200">
+//             <button
+//               onClick={() => window.open(visit.location_card?.map_url, '_blank')}
+//               className="text-xs md:text-sm text-[#081a58] border border-[#081a58]/30 px-3 py-1 rounded-lg hover:text-[#EA6677] hover:border-[#EA6677]/50 hover:bg-[#EA6677]/5 transition"
+//             >
+//               {getLocalizedField(visit.location_card, 'map_label', language)} ↗
+//             </button>
+//           </div>
+
+//           <div className="relative">
+//             <iframe
+//               src={visit.location_card?.location_embeded_url}
+//               className="w-full h-[200px] md:h-[240px]"
+//               loading="lazy"
+//               style={{ border: 0 }}
+//             />
+//             <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/10 to-transparent" />
+//           </div>
+
+//           <div className="px-4 py-3 flex items-center justify-between gap-3">
+//             <div className="text-xs md:text-sm text-slate-600">
+//               {getLocalizedField(visit.event_details, 'locationname', language)}
+//             </div>
+//             <div className="text-[10px] md:text-xs text-slate-500">
+//               {getLocalizedField(visit.event_details, 'locationdescription', language)}
+//             </div>
+//           </div>
+//         </div>
+
+//         {/* Facilities section */}
+//         <motion.div custom={2} variants={cardVariants} initial="hidden" animate={controls} className="my-12">
+//           <div className="text-center mb-10">
+//             <h3 className="text-2xl lg:text-3xl font-semibold text-[#081a58] mb-2">
+//               {getLocalizedField(visit.facilities_card, 'heading', language)}
+//             </h3>
+//             <p className="text-base text-slate-700 max-w-2xl mx-auto">
+//               {getLocalizedField(visit.facilities_card, 'description', language)}
+//             </p>
+//           </div>
+
+//           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4 max-w-4xl mx-auto">
+//             {(visit.facilities_card?.cards || []).map((item, i) => (
+//               <motion.div
+//                 key={item.id || i}
+//                 whileInView={{ opacity: 1, y: 0 }}
+//                 initial={{ opacity: 0, y: 25 }}
+//                 viewport={{ once: true, amount: 0.2 }}
+//                 whileHover={{ y: -6, scale: 1.02 }}
+//                 className="group bg-white/80 text-shadow-emerald-800 backdrop-blur-sm rounded-xl shadow-sm hover:shadow-lg border border-slate-100/50 hover:border-[#EA6677]/40 p-5 transition-all duration-300 flex flex-col items-center"
+//               >
+//                 <div className="w-12 h-12 bg-[#081a58]/5 rounded-lg flex items-center justify-center mb-3 border-2 border-[#081a58]/20 group-hover:bg-[#EA6677]/10 group-hover:border-[#EA6677]/40 transition-all duration-200">
+//                   <span className="text-lg text-[#081a58] group-hover:text-[#EA6677]">
+//                     {item.emoji}
+//                   </span>
+//                 </div>
+//                 <h4 className="font-medium text-[#081a58] text-sm mb-1 text-center">
+//                   {getLocalizedField(item, 'title', language) || item.title}
+//                 </h4>
+//                 <p className="text-xs text-slate-600 text-center leading-tight">
+//                   {getLocalizedField(item, 'description', language) || item.description}
+//                 </p>
+//               </motion.div>
+//             ))}
+//           </div>
+//         </motion.div>
+
+//         {/* Additional info */}
+//         {(visit.additional_info || []).map((i, idx) => (
+//           <motion.div
+//             key={i.id || idx}
+//             variants={cardVariants}
+//             initial="hidden"
+//             animate={controls}
+//             className="mb-10 bg-white/95 p-5 rounded-2xl border border-slate-200 shadow-sm hover:shadow-md transition-all"
+//           >
+//             <h4 className="text-lg md:text-xl font-semibold text-[#081a58] mb-2">
+//               {getLocalizedField(i, 'title', language)}
+//             </h4>
+//             <p className="text-sm md:text-base text-slate-700 leading-relaxed">
+//               {getLocalizedField(i, 'description', language)}
+//             </p>
+//           </motion.div>
+//         ))}
+//       </div>
+//     </section>
+//   );
+// }
+
+
+//static
+
 import { useEffect, useRef, useState } from "react";
 import { motion, useInView, useAnimation } from "framer-motion";
 import { useTranslation } from "../hooks/useTranslation";
@@ -46,6 +458,7 @@ export default function VisitSection() {
     return () => clearInterval(timer);
   }, []);
 
+  const dateNotAmounced = true
 
 
   return (
@@ -190,8 +603,8 @@ export default function VisitSection() {
               <span className="text-base text-[#081a58] group-hover/card:text-[#EA6677]">📍</span>
             </div>
             <h3 className="text-sm md:text-md  font-medium text-[#081a58] mb-1.5">{t.visit?.location}</h3>
-            <p className="text-sm md:text-base font-semibold text-slate-700">The Arena Kuwait</p>
-            <p className="text-xs md:text-sm  text-slate-600 mt-1">360 Mall, South Surra</p>
+            <p className="text-sm md:text-base font-semibold text-slate-700">{t?.locationName}</p>
+            <p className="text-xs md:text-sm  text-slate-600 mt-1">{t?.locationDescription}</p>
           </div>
 
          
@@ -202,13 +615,13 @@ export default function VisitSection() {
       <span className="text-base text-[#081a58] group-hover/card:text-[#EA6677]">📅</span>
     </div>
     <h3 className="text-sm md:text-md  font-medium text-[#081a58] mb-1.5">{t.visit?.dateTime}</h3>
-    <p className="text-sm md:text-base text-slate-700 mb-2">30 Apr – 2 May 2026</p>
-    <div className="flex items-center gap-1 text-sm md:text-basefont-semibold text-emerald-600 font-mono bg-emerald-50 px-1 py-1 rounded-full">
+    <p className="text-sm md:text-base text-slate-700 mb-2">Will Be Anouncing Soon</p>
+    {/* <div className="flex items-center gap-1 text-sm md:text-basefont-semibold text-emerald-600 font-mono bg-emerald-50 px-1 py-1 rounded-full">
       {t.visit?.startsIn || "Starts In: "}
       <span>{countdown.days}d</span>
       <span>{countdown.hours.toString().padStart(2, '0')}h</span>
       <span>{countdown.minutes.toString().padStart(2, '0')}m</span>
-    </div>
+    </div> */}
     <p className="text-sm md:text-md text-slate-500 mt-1">{t.visit?.eventTiming || "10AM–10PM daily" }</p>
   </div>
 ) : null}
@@ -423,7 +836,7 @@ export default function VisitSection() {
           initial={{ opacity: 0, y: 15 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ delay: 0.4 }}
-          className="text-center max-w-2xl mx-auto grid place-items-center w-full"
+          className="text-center max-w-2xl mx-auto grid place-items-center w-full mb-5"
         >
           <p className="text-base md:text-lg font-medium text-slate-700 mb-3">
             {t.visit?.welcomeMessage ||
@@ -431,26 +844,36 @@ export default function VisitSection() {
           </p>
           <p className="text-sm text-slate-600 mb-6">
           </p>
-        <motion.button
-  whileHover={{
-    scale: 1.05,
-    boxShadow: "0 15px 35px rgba(8, 26, 88, 0.3)",
-    backgroundColor: "#EA6677",
-  }}
-  whileTap={{ scale: 0.98 }}
+       <motion.button
+  whileHover={
+    !dateNotAmounced
+      ? {
+          scale: 1.05,
+          boxShadow: "0 15px 35px rgba(8, 26, 88, 0.3)",
+        }
+      : undefined
+  }
+  whileTap={!dateNotAmounced ? { scale: 0.98 } : undefined}
+  disabled={dateNotAmounced}
   onClick={() => {
-    window.open(
-      'https://calendar.app.google/jpWh4q4dJ7wvT9XV7', 
-      '_blank', 
-      'noopener,noreferrer'
-    );
+    if (!dateNotAmounced) {
+      window.open(
+        "https://calendar.app.google/jpWh4q4dJ7wvT9XV7",
+        "_blank",
+        "noopener,noreferrer"
+      );
+    }
   }}
-  className="bg-[#081a58] hover:bg-[#EA6677] text-white px-8 py-4 rounded-xl font-medium text-base shadow-lg border border-slate-200 transition-all duration-300 flex items-center gap-2 justify-center"
+  title={dateNotAmounced ? "Sorry the date will be announced soon" : ""}
+  className={`${
+    dateNotAmounced
+      ? "bg-gray-300 text-black cursor-not-allowed"
+      : "bg-[#081a58] hover:bg-[#EA6677] text-white"
+  } px-8 py-4 rounded-xl font-medium text-base shadow-lg border border-slate-200 transition-all duration-300 flex items-center gap-2 justify-center`}
 >
   <span>📅</span>
   <span>{t.visit?.addToCalendar || "Add to Calendar"}</span>
 </motion.button>
-
         </motion.div>
       </div>
     </section>
