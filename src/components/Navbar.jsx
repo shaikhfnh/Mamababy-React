@@ -248,18 +248,18 @@ const menuPosition = isRTL ? "left-0" : "right-0";
               <div key={i} className="relative group">
                 <motion.button
                   onClick={() => handleNavClick(link)}
-                  className="flex items-center capitalize no-underline cursor-pointer gap-1 px-3 py-2 text-gray-800 font-medium text-sm lg:text-base xl:text-lg relative transition-all duration-300 hover:text-[#091C41]"
+                  className="flex items-center capitalize no-underline cursor-pointer gap-1 px-3 py-2 text-[#254E89] font-medium text-sm lg:text-base xl:text-lg relative transition-all duration-300 hover:text-[#174585]"
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
                 >
                   {link.label}
                   {link.dropdown && (
-                    <svg className="w-4 h-4 text-gray-500 no-underline cursor-pointer group-hover:text-[#091C41] transition-all duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <svg className="w-4 h-4 text-gray-500 no-underline cursor-pointer group-hover:text-[#254E89] transition-all duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
                     </svg>
                   )}
                   {!link.dropdown && (
-                    <span className="absolute no-underline cursor-pointer left-0 -bottom-1 w-0 h-px bg-gradient-to-r from-[#091C41] to-transparent transition-all duration-300 group-hover:w-full" />
+                    <span className="absolute no-underline cursor-pointer left-0 -bottom-1 w-0 h-px bg-gradient-to-r from-[#1a4c92] to-transparent transition-all duration-300 group-hover:w-full" />
                   )}
                 </motion.button>
 
@@ -270,7 +270,7 @@ const menuPosition = isRTL ? "left-0" : "right-0";
                         key={j}
                         onClick={() => handleNavClick(item)}
                         whileHover={{ x: 4 }}
-                        className={`w-full ${language === 'en' ? "text-left" : "text-right"} px-6 py-3 text-sm font-medium text-gray-700 hover:bg-gray-50/80 hover:text-[#091C41] transition-all duration-200 rounded-lg hover:shadow-sm border-r-4 border-transparent hover:border-[#091C41]`}
+                        className={`w-full ${language === 'en' ? "text-left" : "text-right"} px-6 py-3 text-sm font-medium text-gray-700 hover:bg-gray-50/80 hover:text-[#0f4186] transition-all duration-200 rounded-lg hover:shadow-sm border-r-4 border-transparent hover:border-[#091C41]`}
                       >
                         {item.label}
                       </motion.button>
@@ -347,7 +347,7 @@ const menuPosition = isRTL ? "left-0" : "right-0";
                   onClick={closeMobileMenu}
                   className="p-2 rounded-xl hover:bg-gray-100 transition-all duration-200 group"
                 >
-                  <svg className="w-7 h-7 text-gray-700 group-hover:text-[#091C41]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <svg className="w-7 h-7 text-[#254E89] group-hover:text-[#154486]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M6 18L18 6M6 6l12 12" />
                   </svg>
                 </motion.button>
@@ -359,12 +359,12 @@ const menuPosition = isRTL ? "left-0" : "right-0";
                     <motion.button
                       whileTap={{ scale: 0.98 }}
                       onClick={link.dropdown ? toggleMobileExhibit : () => handleNavClick(link)}
-                      className="w-full text-left py-3 px-4 text-lg capitalize font-semibold text-gray-800 hover:text-[#091C41] hover:bg-gray-50 rounded-xl transition-all duration-200 flex items-center justify-between group border-l-4 border-transparent hover:border-[#091C41]"
+                      className="w-full text-left py-3 px-4 text-lg capitalize font-semibold text-[#254E89] hover:text-[#174d99] hover:bg-gray-50 rounded-xl transition-all duration-200 flex items-center justify-between group border-l-4 border-transparent hover:border-[#091C41]"
                     >
                       <span>{link.label}</span>
                       {link.dropdown && (
                         <motion.svg 
-                          className="w-5 h-5 text-gray-600 group-hover:text-[#091C41] transition-all duration-200"
+                          className="w-5 h-5 text-[#254E89] group-hover:text-[#164a92] transition-all duration-200"
                           animate={{ rotate: mobileExhibitOpen ? 180 : 0 }}
                           fill="none" 
                           stroke="currentColor" 
@@ -391,9 +391,9 @@ const menuPosition = isRTL ? "left-0" : "right-0";
                                 whileTap={{ scale: 0.98 }}
                                 whileHover={{ x: 2 }}
                                 onClick={() => handleNavClick(item)}
-                                className="w-full text-left py-3 pl-8 pr-6 text-base font-medium text-gray-700 hover:bg-gradient-to-r hover:from-[#091C41]/5 hover:to-blue-50/50 hover:text-[#091C41] rounded-2xl transition-all duration-200 border border-gray-200 hover:border-[#091C41]/50 hover:shadow-sm flex items-center gap-3 bg-white/80 backdrop-blur-sm"
+                                className="w-full text-left py-3 pl-8 pr-6 text-base font-medium text-[#254E89] hover:bg-gradient-to-r hover:from-[#254E89]/40 hover:to-blue-50/50 hover:text-[#093f8a] rounded-2xl transition-all duration-200 border border-gray-200 hover:border-[#091C41]/50 hover:shadow-sm flex items-center gap-3 bg-white/80 backdrop-blur-sm"
                               >
-                                <div className="w-2 h-2 bg-gradient-to-r from-[#091C41] to-[#1e3a5f] rounded-full group-hover:scale-110 transition-transform duration-200" />
+                                <div className="w-2 h-2 bg-gradient-to-r from-[#083e8a] to-[#254E89] rounded-full group-hover:scale-110 transition-transform duration-200" />
                                 <span>{item.label}</span>
                               </motion.button>
                             ))}

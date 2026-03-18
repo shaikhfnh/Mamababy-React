@@ -261,7 +261,7 @@ TEL: <a href={`tel:${contactNumber}`} className="text-md text-black">{contactNum
           {t.fouzTitle}
         </motion.div>
         <motion.a
-  href="https://fouz.com"  // Replace with actual Fouz URL
+  href="https://fouzexpos.com/"  // Replace with actual Fouz URL
   target="_blank"
   rel="noopener noreferrer"
   initial={{ opacity: 0, scale: 0.92 }}
