@@ -251,7 +251,7 @@ const handleSubmit = async (e) => {
                   p-4 md:p-6 lg:p-8">
 
     {/* Heading */}
-    <motion.h2
+    <motion.div
       initial={{ opacity: 0, y: 30 }}
       whileInView={{ opacity: 1, y: 0 }}
       transition={{ delay: 0.2, duration: 0.7 }}
@@ -260,10 +260,10 @@ const handleSubmit = async (e) => {
     >
                 {getLocalizedField(data, `booking_heading`, language)}
 
-    </motion.h2>
+    </motion.div>
 
     {/* Subheading */}
-    <motion.p
+    <motion.div
       initial={{ opacity: 0, y: 20 }}
       whileInView={{ opacity: 1, y: 0 }}
       transition={{ delay: 0.4, duration: 0.7 }}
@@ -273,10 +273,10 @@ const handleSubmit = async (e) => {
                  leading-relaxed max-w-3xl mx-auto"
     >
      {getLocalizedField(data, `booking_subheading`, language)}
-    </motion.p>
+    </motion.div>
 
     {/* Description */}
-    <motion.p
+    <motion.div
       initial={{ opacity: 0, y: 15 }}
       whileInView={{ opacity: 1, y: 0 }}
       transition={{ delay: 0.6, duration: 0.7 }}
@@ -286,7 +286,7 @@ const handleSubmit = async (e) => {
                  max-w-2xl mx-auto"
     >
   {getLocalizedField(data, `booking_description`, language)}
-    </motion.p>
+    </motion.div>
 
   </div>
 </motion.div>
@@ -340,7 +340,7 @@ const handleSubmit = async (e) => {
 
                         <input
                           type="checkbox"
-                          className="hidden"
+                          className="hidden text-[1rem]"
                           checked={form.categories.includes(cat)}
                           onChange={() => handleCategoryChange(cat)}
                         />
@@ -383,7 +383,7 @@ const handleSubmit = async (e) => {
                           type="radio"
                           name="sponsor"
                           value={option}
-                          className="hidden"
+                          className="hidden text-[1rem]"
                           onChange={handleChange}
                         />
 
@@ -466,7 +466,7 @@ function Input({ name, value, onChange, placeholder, type, error, touched, setTo
         onChange={onChange}
         onBlur={() => setTouched(prev => ({ ...prev, [name]: true }))}
         placeholder={placeholder}
-        className={`w-full border rounded-full px-5 py-2 bg-white text-black text-md focus:outline-none transition
+        className={`w-full border rounded-full px-5 py-2 bg-white text-black text-md focus:outline-none transition text-[1rem]
           ${error ? "border-red-500 focus:ring-1 focus:ring-red-400" : "border-gray-400 focus:ring-1 focus:ring-black"}
         `}
       />

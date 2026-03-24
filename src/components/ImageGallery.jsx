@@ -3,13 +3,30 @@ import { useLanguage } from "../context/LanguageContext";
 import { getLocalizedField } from "../utils/getLocalizedField";
 
 // Single gallery image card
-const ImageCard = ({ src }) => {
+const ImageCard = ({ src, index }) => {
   const rotation = Math.random() * 6 - 3; // random -3 to +3 degrees
+  const floatVariants = {
+    float: {
+      y: [0, -5, 0, 3, 0],
+      transition: {
+        repeat: Infinity,
+        duration: 6 + index * 0.2,
+        ease: "easeInOut",
+      },
+    },
+  };
+
   return (
     <motion.div
-      whileHover={{ scale: 1.05, rotate: 0 }}
-      initial={{ rotate: rotation }}
-      transition={{ type: "spring", stiffness: 200, damping: 20 }}
+      variants={floatVariants}
+      initial={{ opacity: 0, y: 20, rotate: rotation, scale: 0.97 }}
+      whileInView={{ opacity: 1, y: 0, rotate: 0, scale: 1 }}
+      whileHover={{
+        y: -6,
+        scale: 1.05,
+        boxShadow: "0 12px 25px rgba(0,0,0,0.2)",
+      }}
+      transition={{ type: "spring", stiffness: 140, damping: 20 }}
       className="overflow-hidden rounded-xl shadow-lg"
     >
       <img
@@ -25,22 +42,16 @@ const ImageCard = ({ src }) => {
 const ImageGallery = ({ data }) => {
   const { language } = useLanguage();
 
-  // Filter all keys in ACF that are gallery images
-  const galleryKeys = Object.keys(data).filter(
-    (key) => key.startsWith("image_gallery_")
-  );
+  const galleryKeys = Object.keys(data)
+    .filter((key) => key.startsWith("image_gallery_"))
+    .sort(
+      (a, b) => parseInt(a.match(/\d+/)[0]) - parseInt(b.match(/\d+/)[0])
+    );
 
-  // Sort keys numerically (image_gallery_1, image_gallery_2, etc.)
-  galleryKeys.sort(
-    (a, b) => parseInt(a.match(/\d+/)[0]) - parseInt(b.match(/\d+/)[0])
-  );
-
-  // Map to actual URLs
   const galleryImages = galleryKeys
     .map((key) => data[key])
-    .filter(Boolean); // remove any empty/null
+    .filter(Boolean);
 
-  // Background image
   const bgImage = data.background_image_gallery || "";
 
   return (
@@ -70,7 +81,7 @@ const ImageGallery = ({ data }) => {
         {/* Gallery images */}
         {galleryImages.map((src, i) => (
           <div key={i} className="mb-4 break-inside-avoid">
-            <ImageCard src={src} />
+            <ImageCard src={src} index={i} />
           </div>
         ))}
       </div>

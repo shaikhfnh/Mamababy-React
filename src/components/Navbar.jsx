@@ -264,13 +264,13 @@ const menuPosition = isRTL ? "left-0" : "right-0";
                 </motion.button>
 
                 {link.dropdown && link.items?.length > 0 && (
-                  <div className="absolute top-full left-0 mt-2 w-56 no-underline cursor-pointer bg-white/95 backdrop-blur-xl shadow-xl rounded-2xl border border-gray-100 py-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-20">
+                  <div className="absolute top-full left-0 mt-2 w-56 no-underline cursor-pointer bg-white/60 backdrop-blur-xl  shadow-xl rounded-2xl border border-gray-100 py-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-20">
                     {link.items.map((item, j) => (
                       <motion.button
                         key={j}
                         onClick={() => handleNavClick(item)}
                         whileHover={{ x: 4 }}
-                        className={`w-full ${language === 'en' ? "text-left" : "text-right"} px-6 py-3 text-sm font-medium text-gray-700 hover:bg-gray-50/80 hover:text-[#0f4186] transition-all duration-200 rounded-lg hover:shadow-sm border-r-4 border-transparent hover:border-[#091C41]`}
+                        className={`w-full ${language === 'en' ? "text-left" : "text-right"} px-6 py-3 text-sm font-medium text-black hover:bg-gray-50/80 hover:text-[#0f4186] transition-all duration-200 rounded-lg hover:shadow-sm border-r-4 border-transparent hover:border-[#091C41]`}
                       >
                         {item.label}
                       </motion.button>
