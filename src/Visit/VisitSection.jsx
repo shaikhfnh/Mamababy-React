@@ -70,7 +70,7 @@ useEffect(() => {
     <section
     key={"visit"}
       id="visit"
-      className="bg-gradient-to-b from-[#fff7f8] pt-5 via-slate-50 to-white mt-16 md:mt-20"
+      className="bg-gradient-to-b from-[#fff7f8] pt-5 via-slate-50 to-white mt-16 md:mt-20 "
     >
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
 

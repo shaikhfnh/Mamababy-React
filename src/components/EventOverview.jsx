@@ -64,14 +64,14 @@ export default function FloatingMarketingEcosystem({ data }) {
   });
 
   return (
-    <section className="relative py-12 md:py-16 bg-white overflow-hidden">
+    <section className="relative py-12 md:py-16 bg-white overflow-hidden select-none">
       <div className="max-w-7xl mx-auto px-6 text-center relative z-10">
         {/* Heading */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 1 }}
-          className="text-4xl md:text-5xl font-bold mb-20 select-none text-[#486179]"
+          className="text-4xl md:text-5xl font-bold md:mb-20 mb-12 select-none text-[#1D4C84]"
         >
           {getLocalizedField(data, "marketing_heading", language)}
         </motion.div>

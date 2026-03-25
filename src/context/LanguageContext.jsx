@@ -33,7 +33,6 @@ export function LanguageProvider({ children }) {
 
   const updateLanguageFromUrl = useCallback(() => {
     const newLang = detectLangFromUrl();
-    console.log('🔍 URL Lang detected:', newLang, 'from:', window.location.pathname); // Debug
     setLanguage(newLang);
   }, []);
 

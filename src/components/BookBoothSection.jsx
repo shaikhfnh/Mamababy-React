@@ -21,25 +21,24 @@ export default function BookBoothSection({ data }) {
   ];
 
   const categoryTranslations = {
-  "Baby Care Essentials": "مستلزمات العناية بالطفل",
-  "Maternity Products": "منتجات الأمومة",
-  "Educational Toys and Learning Tools": "الألعاب التعليمية وأدوات التعلم",
-  "Child Safety and Monitoring": "سلامة ومراقبة الطفل",
-  "Wellness and Nutrition": "الصحة والتغذية",
-  "Parenting Services": "خدمات الأسرة",
-  "Lifestyle and Home": "أسلوب الحياة والمنزل",
-  "Tech for Families": "التكنولوجيا للعائلات",
-  "Fashion for Kids": "أزياء الأطفال",
-  "Entertainment Providers": "مزودو الترفيه",
-  "Medical Services": "الخدمات الطبية",
-};
+    "Baby Care Essentials": "مستلزمات العناية بالطفل",
+    "Maternity Products": "منتجات الأمومة",
+    "Educational Toys and Learning Tools": "الألعاب التعليمية وأدوات التعلم",
+    "Child Safety and Monitoring": "سلامة ومراقبة الطفل",
+    "Wellness and Nutrition": "الصحة والتغذية",
+    "Parenting Services": "خدمات الأسرة",
+    "Lifestyle and Home": "أسلوب الحياة والمنزل",
+    "Tech for Families": "التكنولوجيا للعائلات",
+    "Fashion for Kids": "أزياء الأطفال",
+    "Entertainment Providers": "مزودو الترفيه",
+    "Medical Services": "الخدمات الطبية",
+  };
 
   const translations = {
     en: {
       companyName: "Company Name",
       contactName: "Contact Name",
       phone: "Phone Number",
-      email: "Email",
       contactEmail: "Contact Email",
       location: "Company Location",
       instagram: "Instagram",
@@ -57,7 +56,6 @@ export default function BookBoothSection({ data }) {
       companyName: "اسم الشركة",
       contactName: "اسم جهة الاتصال",
       phone: "رقم الهاتف",
-      email: "البريد الإلكتروني",
       contactEmail: "البريد الإلكتروني",
       location: "موقع الشركة",
       instagram: "إنستغرام",
@@ -85,38 +83,24 @@ export default function BookBoothSection({ data }) {
     categories: [],
     sponsor: "",
   });
+
   const [errors, setErrors] = useState({});
   const [touched, setTouched] = useState({});
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isSubmitted, setIsSubmitted] = useState(false);
+  const [submitError, setSubmitError] = useState(false);
 
-const handleChange = (e) => {
-  const { name, value } = e.target;
+  const handleChange = (e) => {
+    const { name, value } = e.target;
 
-  if (name === "phone") {
-    const numeric = value.replace(/\D/g, "");
-    setForm({ ...form, [name]: numeric });
-    if (numeric.length >= 8) setErrors(prev => ({ ...prev, [name]: null }));
-    return;
-  }
-
-  setForm({ ...form, [name]: value });
-
-  // Clear error if field is now valid
-  if (errors[name]) {
-    switch(name) {
-      case "companyName":
-      case "contactName":
-      case "location":
-        if (value.length >= 3) setErrors(prev => ({ ...prev, [name]: null }));
-        break;
-      case "contactEmail":
-        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        if (emailRegex.test(value)) setErrors(prev => ({ ...prev, [name]: null }));
-        break;
-      default:
-        break;
+    if (name === "phone") {
+      const numeric = value.replace(/\D/g, "");
+      setForm({ ...form, [name]: numeric });
+      return;
     }
-  }
-};
+
+    setForm({ ...form, [name]: value });
+  };
 
   const handleCategoryChange = (category) => {
     const updated = form.categories.includes(category)
@@ -142,12 +126,41 @@ const handleChange = (e) => {
       newErrors.phone = t.phoneError;
 
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-
     if (!form.contactEmail || !emailRegex.test(form.contactEmail))
       newErrors.contactEmail = t.invalidEmail;
 
-    if (!form.instagram || form.instagram.length < 3)
-         newErrors.instagram = t.min3;
+// Extract Instagram username from input (username or URL)
+const getInstagramUsername = (input) => {
+  if (!input) return null;
+
+  const trimmed = input.trim();
+
+  // If it's a URL, extract the username
+  const urlMatch = trimmed.match(
+    /^(?:https?:\/\/)?(?:www\.)?instagram\.com\/([a-zA-Z0-9._]{1,30})\/?$/
+  );
+  if (urlMatch) return urlMatch[1];
+
+  // Otherwise assume it's a username
+  return trimmed;
+};
+
+// Validation
+const username = getInstagramUsername(form.instagram);
+const instagramRegex = /^(?!.*\.\.)(?!.*\.$)[a-zA-Z0-9._]{1,30}$/;
+
+if (!username || !instagramRegex.test(username)) {
+  newErrors.instagram =
+    language === "ar"
+      ? "اسم إنستغرام غير صالح"
+      : "Enter a valid Instagram username or link";
+} else {
+  // Remove the error key entirely so it doesn't block submission
+  if (newErrors.instagram) delete newErrors.instagram;
+}
+
+    // if (!form.instagram || form.instagram.length < 3)
+    //   newErrors.instagram = t.min3;
 
     if (form.categories.length === 0)
       newErrors.categories = t.required;
@@ -158,318 +171,236 @@ const handleChange = (e) => {
     return Object.keys(newErrors).length === 0;
   };
 
-const [isSubmitting, setIsSubmitting] = useState(false);
-const [isSubmitted, setIsSubmitted] = useState(false);
-const [submitError, setSubmitError] = useState(false);
+  const handleSubmit = async (e) => {
+    e.preventDefault();
 
-const handleSubmit = async (e) => {
-  e.preventDefault();
+    setTouched({
+      companyName: true,
+      contactName: true,
+      phone: true,
+      contactEmail: true,
+      location: true,
+      instagram: true,
+      categories: true,
+      sponsor: true,
+    });
 
-  // Mark all fields as touched
-  setTouched({
-    companyName: true,
-    contactName: true,
-    phone: true,
-    contactEmail: true,
-    location: true,
-    instagram: true,
-    categories: true,
-    sponsor: true,
-  });
+    if (!validate()) return;
 
-  if (!validate()) return; // Stop submission if validation fails
+    setIsSubmitting(true);
+    setSubmitError(false);
+    console.log(form,"the form")
+    try {
+      console.log("in the try")
+      const response = await fetch(
+        "https://www.mamababyexpo.com/wp-json/expo/v1/booth-enquiry",
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(form),
+        }
+      );
 
-  setIsSubmitting(true);
-  setSubmitError(false);
-
-  try {
-    const response = await fetch(
-      "https://www.mamababyexpo.com/wp-json/expo/v1/booth-enquiry",
-      {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(form),
+      const result = await response.json();
+      console.log(result,"the result in the email submission")
+      if (result.success) {
+        setIsSubmitted(true);
+        setTimeout(() => setIsSubmitted(false), 4000);
+      } else {
+        setSubmitError(true);
       }
-    );
-
-    const result = await response.json();
-
-    if (result.success) {
-      setIsSubmitted(true);
-
-      // Optional: reset form
-      setForm({
-        companyName: "",
-        contactName: "",
-        phone: "",
-        contactEmail: "",
-        location: "",
-        instagram: "",
-        categories: [],
-        sponsor: "",
-      });
-
-      // Reset button after 4 seconds
-      setTimeout(() => setIsSubmitted(false), 4000);
-    } else {
+    } catch {
       setSubmitError(true);
+    } finally {
+      setIsSubmitting(false);
     }
-  } catch (error) {
-    console.error(error);
-    setSubmitError(true);
-  } finally {
-    setIsSubmitting(false);
-  }
-};
+  };
 
   return (
-    <section className="relative "
-    style={{
+    <section
+      style={{
         backgroundImage: `url(${data?.background_image_booking})`,
         backgroundSize: "cover",
         backgroundPosition: "center",
-      }} >
-        
-      <div className="mx-auto ">
-        <div className="relative overflow-hidden  shadow-2xl">
-
-
-          <div className="absolute inset-0 bg-white/20" />
-
-          <div className="relative z-10 p-3 md:p-14 gap-4 my-4 md:my-0  grid md:grid-cols-[2fr_6fr] w-full ">
-<motion.div
-  initial={{ opacity: 0, y: 60 }}
-  whileInView={{ opacity: 1, y: 0 }}
-  transition={{ duration: 0.9, ease: "easeOut" }}
-  viewport={{ once: true }}
-  className="flex justify-center items-start "
->
-  <div className="w-full  text-start 
-                  bg-white/70 backdrop-blur-xl 
-                  border border-white/60 
-                  shadow-2xl rounded-3xl 
-                  p-4 md:p-6 lg:p-8">
-
-    {/* Heading */}
-    <motion.div
-      initial={{ opacity: 0, y: 30 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      transition={{ delay: 0.2, duration: 0.7 }}
-      viewport={{ once: true }}
-    className="text-4xl md:text-5xl text-center mb-2 md:mb-10 font-semibold text-[#486179]"
+      }}
+      className="py-10"
     >
-                {getLocalizedField(data, `booking_heading`, language)}
+      <div className="md:px-10 mx-auto px-4">
 
-    </motion.div>
+        <div className="grid lg:grid-cols-[2fr_3fr] md:place-items-center gap-6">
 
-    {/* Subheading */}
-    <motion.div
-      initial={{ opacity: 0, y: 20 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      transition={{ delay: 0.4, duration: 0.7 }}
-      viewport={{ once: true }}
-      className="text-base sm:text-lg md:text-xl 
-                 text-gray-800 mb-6 
-                 leading-relaxed max-w-3xl mx-auto"
-    >
-     {getLocalizedField(data, `booking_subheading`, language)}
-    </motion.div>
+          {/* LEFT */}
+          <div className="bg-white/80 backdrop-blur-xl border max-h-fit border-white/60 rounded-3xl p-6 md:p-10 shadow-xl select-none">
 
-    {/* Description */}
-    <motion.div
-      initial={{ opacity: 0, y: 15 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      transition={{ delay: 0.6, duration: 0.7 }}
-      viewport={{ once: true }}
-      className="text-sm sm:text-base md:text-lg 
-                 text-gray-700 leading-relaxed 
-                 max-w-2xl mx-auto"
-    >
-  {getLocalizedField(data, `booking_description`, language)}
-    </motion.div>
+          <div className="text-4xl md:text-5xl font-bold text-[#486179] mb-6">
+              {getLocalizedField(data, `booking_heading`, language)}
+            </div>
 
-  </div>
-</motion.div>
-            <motion.div className=" bg-white/70 backdrop-blur-xl 
-                  border border-white/60  rounded-[30px] p-6 md:p-10 shadow-xl ">
+            <div className="text-[#2F3E46] text-lg mb-4">
+              {getLocalizedField(data, `booking_subheading`, language)}
+            </div>
 
-              <form onSubmit={handleSubmit} className="space-y-3 text-black">
+            <div className="text-[#52616B] text-lg">
+              {getLocalizedField(data, `booking_description`, language)}
+            </div>
+          </div>
 
-                {/* 2 Column Fields */}
-                <div className="grid md:grid-cols-2 gap-3">
-                  <Input {...fieldProps("companyName")} setTouched={setTouched} />
-                  <Input {...fieldProps("contactName")} setTouched={setTouched}/>
-                </div>
+          {/* FORM */}
+          <div className="bg-white/90 backdrop-blur-xl rounded-3xl p-6 md:p-10 shadow-xl border border-white/60">
 
-                <div className="grid md:grid-cols-2 gap-3" setTouched={setTouched}>
-                  <Input {...fieldProps("phone")} setTouched={setTouched}/>
-                <Input {...fieldProps("contactEmail")} setTouched={setTouched}/>
+            <form onSubmit={handleSubmit} className="space-y-4 select-none">
 
-                </div>
+              <div className="grid md:grid-cols-2 gap-4">
+                <Input name="companyName" {...fieldProps("companyName")} />
+                <Input name="contactName" {...fieldProps("contactName")} />
+              </div>
 
-                <div className="grid md:grid-cols-2 gap-3">
-                  <Input {...fieldProps("location")} setTouched={setTouched}/>
-                <Input {...fieldProps("instagram")} setTouched={setTouched}/>
+              <div className="grid md:grid-cols-2 gap-4">
+                <Input name="phone" {...fieldProps("phone")} />
+                <Input name="contactEmail" {...fieldProps("contactEmail")} />
+              </div>
 
-                </div>
+              <div className="grid md:grid-cols-2 gap-4">
+                <Input name="location" {...fieldProps("location")} />
+                <Input name="instagram" {...fieldProps("instagram")} />
+              </div>
 
+              {/* Categories */}
+              <div>
+                <label className="text-[#1D4B84] font-medium mb-2 block">
+                  {t.category}
+                </label>
 
-                {/* Categories */}
-                <div>
-                  <label className="font-normal  mb-3 block">
-                    {t.category}
-                  </label>
-
-                  <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-3 border border-gray-300 rounded-xl p-4 max-h-52 md:max-h-full overflow-y-auto">
-                    {categories.map((cat, i) => (
-                      <label
+                <div className="grid lg:grid-cols-3 gap-2 border border-gray-300 rounded-xl p-4 max-h-48 lg:max-h-full overflow-y-auto">
+                  {categories.map((cat, i) => {
+                    const selected = form.categories.includes(cat);
+                    return (
+                      <div
                         key={i}
-                        className="flex items-center gap-3 cursor-pointer"
-                      >
-                        <div
-                          className={`w-5 h-5 flex items-center justify-center rounded border-2 ${
-                            form.categories.includes(cat)
-                              ? "bg-[#1D4B84] border-[#1D4B84]"
-                              : "border-gray-500"
+                        onClick={() => handleCategoryChange(cat)}
+                        className={`cursor-pointer px-3 py-2 rounded-lg text-sm transition
+                          ${selected
+                            ? "bg-[#1D4B84] text-white"
+                            : "bg-white/20 text-[#2F3E46] border border-gray-300 hover:bg-gray-200"
                           }`}
-                        >
-                          {form.categories.includes(cat) && (
-                            <div className="w-2.5 h-2.5 bg-white rounded-sm" />
-                          )}
-                        </div>
-
-                        <input
-                          type="checkbox"
-                          className="hidden text-[1rem]"
-                          checked={form.categories.includes(cat)}
-                          onChange={() => handleCategoryChange(cat)}
-                        />
-
-                        <span className="text-sm">
-  {language === "ar" ? categoryTranslations[cat] : cat}
-</span>
-                      </label>
-                    ))}
-                  </div>
-
-                  {errors.categories && <Error message={errors.categories} />}
+                      >
+                        {language === "ar" ? categoryTranslations[cat] : cat}
+                      </div>
+                    );
+                  })}
                 </div>
 
-                {/* Sponsor */}
-                <div>
-                  <label className="font-normal block mb-3">
-                    {t.sponsor}
-                  </label>
+                {errors.categories && <Error message={errors.categories} />}
+              </div>
 
-                  <div className="flex gap-6">
-                    {["Yes", "No"].map((option) => (
-                      <label
-                        key={option}
-                        className="flex items-center gap-3 cursor-pointer"
-                      >
-                        <div
-                          className={`w-5 h-5 rounded-full border-2 flex items-center justify-center ${
-                            form.sponsor === option
-                              ? "border-[#1D4B84]"
-                              : "border-gray-500"
+              {/* Sponsor */}
+              <div>
+                <label className="text-[#1D4B84] font-medium mb-2 block">
+                  {t.sponsor}
+                </label>
+
+                <div className="flex gap-4">
+                  {["Yes", "No"].map((opt) => {
+                    const active = form.sponsor === opt;
+                    return (
+                      <div
+                        key={opt}
+                        onClick={() => setForm({ ...form, sponsor: opt })}
+                        className={`px-5 py-2 rounded-full text-md cursor-pointer transition
+                          ${active
+                            ? "bg-[#1D4B84] text-white"
+                            : "bg-gray-200 text-[#2F3E46]"
                           }`}
-                        >
-                          {form.sponsor === option && (
-                            <div className="w-2.5 h-2.5 bg-[#1D4B84] rounded-full" />
-                          )}
-                        </div>
-
-                        <input
-                          type="radio"
-                          name="sponsor"
-                          value={option}
-                          className="hidden text-[1rem]"
-                          onChange={handleChange}
-                        />
-
-                        <span>{option === "Yes" ? t.yes : t.no}</span>
-                      </label>
-                    ))}
-                  </div>
-
-                  {errors.sponsor && <Error message={errors.sponsor} />}
+                      >
+                        {opt === "Yes" ? t.yes : t.no}
+                      </div>
+                    );
+                  })}
                 </div>
-<motion.button
-  whileHover={!isSubmitting && !isSubmitted ? { scale: 1.04 } : {}}
-  whileTap={!isSubmitting && !isSubmitted ? { scale: 0.97 } : {}}
-  type="submit"
-  disabled={isSubmitting || isSubmitted}
-  className={`
-    w-full py-4 rounded-full font-semibold transition-all duration-300
-    flex items-center justify-center gap-3
-    ${
-      isSubmitted
-        ? "bg-green-600 text-white"
-        : isSubmitting
-        ? "bg-[#1D4B84]/70 text-white cursor-not-allowed"
-        : "bg-[#1D4B84] text-white hover:bg-[#163a68]"
-    }
-  `}
->
-  {isSubmitting && (
-    <span className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin"></span>
-  )}
 
-  {isSubmitted
-    ? language === "ar"
-      ? "تم الإرسال بنجاح"
-      : "Submitted Successfully"
-    : isSubmitting
-    ? language === "ar"
-      ? "جارٍ الإرسال..."
-      : "Submitting..."
-    : t.submit}
-</motion.button>
-{submitError && (
-  <p className="text-red-500 text-sm mt-3 text-center">
-    {language === "ar"
-      ? "حدث خطأ أثناء الإرسال. حاول مرة أخرى."
-      : "Something went wrong. Please try again."}
-  </p>
-)}
+                {errors.sponsor && <Error message={errors.sponsor} />}
+              </div>
 
-              </form>
-            </motion.div>
+              {/* Submit */}
+              <motion.div
+                onClick={handleSubmit}
+                whileTap={{ scale: 0.97 }}
+                className={`w-full py-4 rounded-full text-center font-semibold cursor-pointer transition
+                  ${isSubmitted
+                    ? "bg-green-600 text-white"
+                    : isSubmitting
+                    ? "bg-[#1D4B84]/60 text-white"
+                    : "bg-[#1D4B84] text-white hover:bg-[#163a68]"
+                  }`}
+              >
+                {isSubmitting
+                  ? "Submitting..."
+                  : isSubmitted
+                  ? "Submitted Successfully"
+                  : t.submit}
+              </motion.div>
 
+              {submitError && (
+                <div className="text-red-500 text-sm text-center">
+                  Something went wrong. Please try again.
+                </div>
+              )}
+            </form>
           </div>
         </div>
       </div>
     </section>
   );
-function fieldProps(name, type = "text") {
-  return {
-    name,
-    type,
-    value: form[name],
-    onChange: handleChange,
-    placeholder: t[name],
-    error: errors[name],
-    touched,
-    setTouched,
-  };
-}
+
+  function fieldProps(name) {
+    return {
+      value: form[name],
+      onChange: handleChange,
+      placeholder: t[name],
+      error: errors[name],
+    };
+  }
 }
 
-/* Input Component */
-function Input({ name, value, onChange, placeholder, type, error, touched, setTouched }) {
+/* Floating Label Input - FINAL */
+function Input({ value, onChange, placeholder, name, error }) {
+  const hasValue = value && value.length > 0;
+
   return (
-    <div>
+    <div className="relative w-full">
+      
+      {/* Input */}
       <input
-        type={type}
         name={name}
         value={value}
         onChange={onChange}
-        onBlur={() => setTouched(prev => ({ ...prev, [name]: true }))}
-        placeholder={placeholder}
-        className={`w-full border rounded-full px-5 py-2 bg-white text-black text-md focus:outline-none transition text-[1rem]
-          ${error ? "border-red-500 focus:ring-1 focus:ring-red-400" : "border-gray-400 focus:ring-1 focus:ring-black"}
-        `}
+        placeholder=" "
+        className={`peer w-full h-[52px] px-4 pt-4 pb-2 rounded-xl border bg-white text-[#1F2937]
+        ${error ? "border-red-500" : "border-gray-300 focus:border-[#1D4B84]"}
+        focus:outline-none transition-all duration-200`}
       />
+
+      {/* Label */}
+      <label
+        className={`
+          absolute left-3 px-1 bg-white rounded-xl
+          transition-all duration-200 pointer-events-none
+
+          ${
+            hasValue
+              ? "-top-2 text-xs text-[#1D4B84]"
+              : "top-3 text-sm text-gray-500"
+          }
+
+          peer-focus:-top-2 
+          peer-focus:text-xs 
+          peer-focus:text-[#1D4B84]
+        `}
+      >
+        {placeholder}
+      </label>
+
+      {/* Error */}
       {error && <Error message={error} />}
     </div>
   );
@@ -478,8 +409,8 @@ function Input({ name, value, onChange, placeholder, type, error, touched, setTo
 /* Error */
 function Error({ message }) {
   return (
-    <p className="text-red-500 text-[11px] mt-2">
+    <div className="text-red-500 text-xs mt-1">
       {message}
-    </p>
+    </div>
   );
 }

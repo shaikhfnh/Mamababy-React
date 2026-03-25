@@ -82,6 +82,7 @@ const Home = () => {
     visible: { opacity: 1, y: 0, transition: { duration: 0.8 } },
   };
 
+
   return (
     <div className="bg-white h-full w-full scroll-smooth">
       <Navbar />
@@ -124,9 +125,9 @@ const Home = () => {
         <SponsorsSection data={data} />
       </motion.section>
 
-      <motion.section id="news" initial="hidden" whileInView="visible" viewport={{ once: true }} variants={sectionAnimation}>
+      {/* <motion.section id="news" initial="hidden" whileInView="visible" viewport={{ once: true }} variants={sectionAnimation}>
         <LatestNewsSlider data={data} />
-      </motion.section>
+      </motion.section> */}
 
       {/* <motion.section id="instagram" initial="hidden" whileInView="visible" viewport={{ once: true }} variants={sectionAnimation}>
         <InstagramSection />

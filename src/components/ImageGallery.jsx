@@ -59,7 +59,7 @@ const ImageGallery = ({ data }) => {
       style={{
         backgroundImage: bgImage ? `url(${bgImage})` : "none",
       }}
-      className="bg-[#97CAD0]/90 py-12 md:py-16 h-full w-full bg-contain bg-start bg-repeat px-4"
+      className="bg-[#97CAD0]/90 py-12 md:py-16 h-full w-full bg-contain bg-start bg-repeat px-4 select-none"
     >
       <div className="max-w-7xl mx-auto columns-2 sm:columns-2 md:columns-3 lg:columns-4 gap-4">
         {/* Gallery heading */}
@@ -70,10 +70,10 @@ const ImageGallery = ({ data }) => {
           viewport={{ once: true }}
           className="pb-14 w-full"
         >
-          <div className="text-4xl md:text-5xl font-semibold text-black">
+          <div className="text-4xl md:text-5xl font-bold text-[#fafcff]">
             {getLocalizedField(data, "gallery_heading", language)}
           </div>
-          <div className="mt-3 text-gray-800 max-w-2xl">
+          <div className="mt-3 text-gray-700 font-medium text-[16px] max-w-2xl">
             {getLocalizedField(data, "gallery_description", language)}
           </div>
         </motion.div>

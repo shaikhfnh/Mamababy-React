@@ -50,16 +50,16 @@ export default function AboutEvent({ data }) {
   return (
     <section
       ref={sectionRef}
-      className="relative  rounded-[3rem] overflow-hidden"
+      className="relative  rounded-[3rem] overflow-hidden select-none"
     >
-      <div className="mx-auto bg-[#CDF0B5]/40 backdrop-blur-md md:rounded-[5rem] py-10 px-6 md:px-16 grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+      <div className="mx-auto bg-[#CDF0B5]/40 backdrop-blur-md md:rounded-[5rem] py-12 md:py-16 px-6 md:px-16 grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
 
         {/* TEXT SIDE */}
         <motion.div style={{ y: textY, opacity: textOpacity }}>
 
-          <h2 className="text-3xl md:text-5xl font-semibold text-[#1D4B84] mb-6">
+          <div className="text-4xl md:text-5xl font-bold mb-3 text-[#486179]">
             {getLocalizedField(data, "about_heading", language)}
-          </h2>
+          </div>
 
           <div
             className="text-[1rem] md:text-[1.05rem] text-[#1D4B84] leading-relaxed mb-8"

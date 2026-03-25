@@ -45,7 +45,7 @@ export default function ImpactStats({ data }) {
         backgroundSize: "cover",
         backgroundPosition: "center",
       }}
-      className="py-14 md:py-18 bg-[#EFE4D2]"
+      className="py-12 md:py-16 bg-[#EFE4D2] select-none"
     >
       <div className="max-w-7xl mx-auto px-6">
         {/* Heading */}
@@ -59,7 +59,7 @@ export default function ImpactStats({ data }) {
           <div className="text-4xl md:text-5xl font-bold mb-3 text-[#486179]">
             {getLocalizedField(data, `impact_heading`, language)}
           </div>
-          <div className="text-gray-800 max-w-xl mx-auto">
+          <div className="text-gray-700 font-medium text-[16px] max-w-xl mx-auto">
             {getLocalizedField(data, `impact_subheading`, language)}
           </div>
         </motion.div>
@@ -74,7 +74,7 @@ export default function ImpactStats({ data }) {
               animate="animate"
               whileHover={{ scale: 1.08, y: -6 }}
               transition={{ type: "spring", stiffness: 120 }}
-              className="relative rounded-2xl overflow-hidden h-full w-full md:h-64 md:w-64 border-2 shadow-md hover:shadow-xl cursor-pointer"
+              className="relative rounded-2xl overflow-hidden h-full w-full md:h-44 md:w-44 lg:h-64 lg:w-64 border-2 border-white shadow-md hover:shadow-xl cursor-pointer"
             >
               {/* Image */}
               <img

@@ -80,7 +80,7 @@ export default function LatestNewsSlider({ data }) {
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
           viewport={{ once: true }}
-          className="text-center text-4xl md:text-5xl font-semibold text-[#486179] mb-14"
+          className="text-center select-none text-4xl md:text-5xl font-bold text-[#486179] mb-14"
         >
           {getLocalizedField(data, "news_section_heading", language)}
         </motion.div>
@@ -101,9 +101,9 @@ export default function LatestNewsSlider({ data }) {
                 animate={{ opacity: 1, scale: 1 }}
                 exit={{ opacity: 0, scale: 0.98 }}
                 transition={{ duration: 0.9, ease: "easeInOut" }}
-                className="absolute inset-0"
+                className="absolute inset-0 select-none"
               >
-                <div className="w-full h-full relative group cursor-pointer">
+                <div className="w-full h-full relative group ">
 
                   <img
                     src={currentItem.image}
@@ -134,7 +134,7 @@ export default function LatestNewsSlider({ data }) {
           {/* PREVIOUS BUTTON */}
           <button
             onClick={prevSlide}
-            className="absolute top-1/2 -translate-y-1/2 left-0 md:left-6 bg-white/70 backdrop-blur-md hover:bg-white text-black md:w-11 md:h-11 w-8 h-8 rounded-full flex items-center justify-center shadow-xl transition"
+            className="absolute top-1/2 cursor-pointer -translate-y-1/2 left-0 md:left-6 bg-white/70 backdrop-blur-md hover:bg-white text-black md:w-11 md:h-11 w-8 h-8 rounded-full flex items-center justify-center shadow-xl transition"
           >
             <GrPrevious />
           </button>
@@ -142,7 +142,7 @@ export default function LatestNewsSlider({ data }) {
           {/* NEXT BUTTON */}
           <button
             onClick={nextSlide}
-            className="absolute top-1/2 -translate-y-1/2 right-0 md:right-6 bg-white/70 backdrop-blur-md hover:bg-white text-black md:w-11 md:h-11 w-8 h-8 rounded-full flex items-center justify-center shadow-xl transition"
+            className="absolute top-1/2 cursor-pointer -translate-y-1/2 right-0 md:right-6 bg-white/70 backdrop-blur-md hover:bg-white text-black md:w-11 md:h-11 w-8 h-8 rounded-full flex items-center justify-center shadow-xl transition"
           >
             <GrNext />
           </button>
@@ -154,7 +154,7 @@ export default function LatestNewsSlider({ data }) {
               <button
                 key={i}
                 onClick={() => setIndex(i)}
-                className={`h-3 rounded-full transition-all duration-300 ${
+                className={`h-3 cursor-pointer rounded-full transition-all duration-300 ${
                   i === index ? "w-10 bg-black" : "w-3 bg-gray-500/40"
                 }`}
               />

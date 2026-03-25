@@ -49,7 +49,7 @@ export default function CategoriesSection({ data }) {
     <section
       ref={sectionRef}
       dir={language === "ar" ? "rtl" : "ltr"}
-      className="relative py-12 md:py-16 bg-gradient-to-br from-[#0E2A4A] via-[#1D4C84] to-[#122F57] text-white overflow-hidden"
+      className="relative py-12 md:py-16 bg-gradient-to-br from-[#0E2A4A] via-[#1D4C84] to-[#122F57] text-white overflow-hidden select-none"
     >
       <div className="max-w-7xl mx-auto px-6">
         
@@ -59,7 +59,7 @@ export default function CategoriesSection({ data }) {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className="text-4xl md:text-5xl font-semibold mb-14 text-center"
+          className="text-4xl md:text-5xl font-bold text-[#9ca8b3] mb-14 text-center"
         >
           {getLocalizedField(data, "categories_heading", language)}
         </motion.div>

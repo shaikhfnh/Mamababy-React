@@ -51,7 +51,7 @@ export default function SponsorsSection({ data }) {
   }
 };
   return (
-    <section className="relative bg-white py-16 overflow-hidden">
+    <section className="relative bg-white md:py-16 py-12 overflow-hidden">
       {/* Background Blur */}
       <motion.div
         animate={{ x: ["0%", "10%", "-5%", "0%"], y: ["0%", "5%", "-3%", "0%"] }}
@@ -66,15 +66,16 @@ export default function SponsorsSection({ data }) {
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.9, ease: smoothEase }}
           viewport={{ once: true }}
-          className="text-center mb-14"
+          className="text-center select-none mb-14"
         >
           <div className="text-xs uppercase tracking-[0.3em] text-gray-400 mb-3">
             {getLocalizedField(data, "expo_name", language)}
           </div>
-          <div className="text-4xl md:text-5xl font-semibold text-[#091C41] mb-4">
+          
+          <div className="text-4xl md:text-5xl font-bold text-[#486179] mb-5">
             {getLocalizedField(data, "sponsor_heading", language)}
           </div>
-          <div className="text-gray-600 capitalize max-w-xl mx-auto text-base leading-relaxed">
+          <div className="text-gray-700 font-medium text-[16px] capitalize max-w-xl mx-auto leading-relaxed">
             {getLocalizedField(data, "sponsor_subheading", language)}
           </div>
         </motion.div>
@@ -92,13 +93,13 @@ export default function SponsorsSection({ data }) {
                 delay: tierIndex * 0.1,
               }}
               viewport={{ once: true }}
-              className="text-center"
+              className="text-center select-none"
             >
               {/* Tier Title */}
               <div className="text-xl uppercase md:text-2xl font-semibold text-[#091C41] mb-1">
                 {tier.label}
               </div>
-              <div className="text-gray-500 capitalize mb-6 text-sm md:text-base">
+              <div className="text-gray-600 capitalize mb-6 font-medium text-[14px] ">
                 {tier.description}
               </div>
 
@@ -144,7 +145,7 @@ export default function SponsorsSection({ data }) {
       <img
         src={getLocalizedField(data, "sponsors_viewmore_btn", language)}
         alt="View More Sponsors"
-        className="h-12 md:h-14 lg:h-16 object-contain"
+        className="h-12 md:h-14 lg:h-16 object-contain cursor-pointer"
       />
     </button>
   </motion.div>

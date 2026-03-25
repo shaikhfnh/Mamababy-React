@@ -50,7 +50,7 @@ export default function Benefits({ data }) {
     i++;
   }
 
-  const DURATION = 5000;
+  const DURATION = 7000;
 
   useEffect(() => {
     if (isMobile || benefits.length === 0) return;
@@ -67,14 +67,19 @@ export default function Benefits({ data }) {
   if (!benefits.length) return null;
 
   return (
-    <section className="relative py-20 bg-[#EFE4D2] overflow-hidden">
+    <section
+     style={{
+        backgroundImage: `url(${data?.background_image_benifit})`,
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+      }} className="relative py-12 md:py-16 bg-[#EFE4D2] overflow-hidden select-none">
       <div className="max-w-7xl mx-auto px-6">
         {/* Heading */}
-        <div className="text-center mb-20">
+        <div className="text-center md:mb-20 mb-12">
           <div className="text-4xl md:text-5xl font-bold text-[#486179]">
             {getLocalizedField(data, "benifit_heading", language)}
           </div>
-          <div className="mt-5 text-gray-800 max-w-2xl mx-auto text-lg leading-relaxed">
+          <div className="mt-5 mx-auto text-gray-700 font-medium text-[16px] leading-relaxed">
             {getLocalizedField(data, "benifit_subheading", language)}
           </div>
         </div>
@@ -129,7 +134,7 @@ export default function Benefits({ data }) {
                   transition={{ duration: 0.25 }}
                   className="bg-white rounded-3xl shadow-xl overflow-hidden"
                 >
-                  <div className="relative h-80 overflow-hidden">
+                  <div className="relative h-100 overflow-hidden">
                     <motion.img
                       key={benefits[active]?.image}
                       src={benefits[active]?.image}
@@ -145,9 +150,9 @@ export default function Benefits({ data }) {
                     <h3 className="text-2xl text-gray-800 font-semibold mb-3">
                       {benefits[active]?.title}
                     </h3>
-                    <p className="text-gray-600 text-lg leading-relaxed">
+                    <div className="text-gray-600 text-lg leading-relaxed">
                       {benefits[active]?.description}
-                    </p>
+                    </div>
                   </div>
                 </motion.div>
               </AnimatePresence>
@@ -208,11 +213,11 @@ export default function Benefits({ data }) {
                       <img
                         src={item.image}
                         alt={item.title}
-                        className="w-full h-56 object-cover rounded-xl mb-4"
+                        className="w-full h-64 object-cover rounded-xl mb-4"
                       />
-                      <p className="text-gray-600 leading-relaxed">
+                      <div className="text-gray-600 leading-relaxed">
                         {item.description}
-                      </p>
+                      </div>
                     </motion.div>
                   </motion.div>
                 </motion.div>

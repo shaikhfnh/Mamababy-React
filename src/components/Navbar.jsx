@@ -405,18 +405,18 @@ const menuPosition = isRTL ? "left-0" : "right-0";
                 ))}
               </div>
 
-              <div className="pt-8 pb-10 border-t border-gray-200 space-y-4">
+              <div className="pt-5 pb-5 border-t border-gray-200 space-y-4">
                 <motion.button
                   whileTap={{ scale: 0.95 }}
                   onClick={toggleLanguage}
-                  className="w-full px-6 py-3 bg-gradient-to-r from-[#091C41] to-[#1e3a5f] text-white rounded-2xl font-semibold text-base shadow-xl hover:shadow-2xl transition-all duration-300"
+                  className="w-full px-6 py-2 bg-gradient-to-r from-[#435781] to-[#224066] text-white rounded-4xl font-semibold text-base shadow-xl hover:shadow-2xl transition-all duration-300"
                 >
                   {language === "en" ? "العربية" : "English"}
                 </motion.button>
                 <motion.button
                   whileTap={{ scale: 0.95 }}
                   onClick={() => handleScrollTo("booking")}
-                  className="w-full px-6 py-4 bg-gradient-to-r from-[#091C41] to-[#1e3a5f] text-white rounded-2xl font-bold text-lg shadow-2xl hover:shadow-3xl transition-all duration-300"
+                  className="w-full px-6 py-2 bg-gradient-to-r from-[#091C41] to-[#1e3a5f] text-white rounded-xl font-semibold text-lg shadow-2xl hover:shadow-3xl transition-all duration-300"
                 >
                   {bookText}
                 </motion.button>

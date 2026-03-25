@@ -50,7 +50,7 @@ const expoLogos = [
 ];
 
   return (
-    <footer id="contact" className="w-full overflow-hidden bg-[#E5E5E5]">
+    <footer id="contact" className="w-full overflow-hidden bg-[#E5E5E5] ">
 
       {/* ================= TOP SECTION ================= */}
       <div className="bg-[#E8DFD6]">
@@ -66,7 +66,7 @@ const expoLogos = [
 
             <img src={logo} alt="Mama Baby Expo" className="h-16 mb-4" />
 
-            <div className="text-black leading-relaxed text-sm md:text-base">
+            <div className="text-black leading-relaxed text-sm md:text-base select-none">
               {footerDescription}
             </div>
 
