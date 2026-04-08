@@ -182,39 +182,50 @@ export default function Navbar() {
     setMobileExhibitOpen(false);
   }, []);
 
-  // 🔥 FIXED toggleLanguage - CORRECTLY HANDLES VISITING PAGES
-  const toggleLanguage = useCallback(() => {
-    const origin = window.location.origin;
-    const pathname = window.location.pathname.toLowerCase().replace(/\/+$/, '');
-    const search = window.location.search;
-    const hash = window.location.hash;
+// 🔥 FULLY DYNAMIC toggleLanguage - No hardcoded pages needed
+const toggleLanguage = useCallback(() => {
+  const origin = window.location.origin;
+  let pathname = window.location.pathname.toLowerCase().replace(/\/+$/, ''); // remove trailing slash
+  const search = window.location.search;
+  const hash = window.location.hash;
 
-    // 🔥 1. Handle participants page
-    if (pathname.includes('/2025/participants')) {
-      const currentLang = language === 'en' ? 'ar' : 'en';
-      const newUrl = pathname.replace(/lang=(en|ar)/, `lang=${currentLang}`);
-      window.location.href = `${origin}${newUrl}${search}${hash}`;
-      return;
-    }
+  const currentLang = language;
+  const newLang = currentLang === 'en' ? 'ar' : 'en';
 
-    // 🔥 2. Handle visiting pages - PROPERLY TOGGLE BETWEEN visiting ↔ visiting-ar
-    if (pathname === '/visiting' || pathname === '/visiting/') {
-      // From visiting (en) → visiting-ar (ar)
-      window.location.href = `${origin}/visiting-ar${search}${hash}`;
-      return;
-    }
+  let newPath = pathname;
+
+  if (newLang === 'ar') {
+    // === SWITCHING TO ARABIC ===
     
-    if (pathname === '/visiting-ar' || pathname === '/visiting-ar/') {
-      // From visiting-ar (ar) → visiting (en)
-      window.location.href = `${origin}/visiting${search}${hash}`;
-      return;
+    // Special case for home page
+    if (pathname === '' || pathname === '/' || pathname === '/ar') {
+      newPath = '/ar';
+    } 
+    // For all other pages: add "-ar" only if not already present
+    else if (!pathname.endsWith('-ar')) {
+      newPath = pathname + '-ar';
     }
+  } 
+  else {
+    // === SWITCHING TO ENGLISH ===
+    
+    // Special case for home page
+    if (pathname === '/ar') {
+      newPath = '/';
+    } 
+    // For other pages: remove "-ar" suffix
+    else {
+      newPath = pathname.replace(/-ar$/, '');
+    }
+  }
 
-    // 🔥 3. Default home page toggle
-    const newLang = language === "en" ? "ar" : "en";
-    const newPath = newLang === "ar" ? "/ar" : "/";
-    window.location.href = `${origin}${newPath}${search}${hash}`;
-  }, [language]);
+  const finalUrl = `${origin}${newPath}${search}${hash}`;
+
+  console.log(`🔄 Language toggle: ${currentLang} → ${newLang} | ${finalUrl}`);
+
+  window.location.href = finalUrl;
+
+}, [language]);
 
   const bookText = getTranslation('book') || "Book Now";
 
@@ -230,7 +241,7 @@ const menuPosition = isRTL ? "left-0" : "right-0";
 
   return (
     <>
-      <nav className={`fixed top-0 md:pb-1 w-full z-50 no-underline border-0! shadow-xl transition-all duration-500 ${
+      <nav className={`fixed top-0 md:pb-1 w-full z-50 no-underline border-0! shadow-xl transition-all duration-500 ${language === 'ar' ? "font-arabic " : 'font-sans'} ${
         scrolled 
           ? "bg-white/40 backdrop-blur-xl  " 
           : "bg-white/80 backdrop-blur-lg"
@@ -339,9 +350,9 @@ const menuPosition = isRTL ? "left-0" : "right-0";
   animate={menuAnimation.animate}
   exit={menuAnimation.exit}
   transition={{ type: "spring", stiffness: 300, damping: 30 }}
-  className={`fixed top-0 ${menuPosition} h-full w-80 max-w-[90vw] bg-white/95 backdrop-blur-2xl shadow-2xl z-50 lg:hidden flex flex-col pt-6 px-6`}
+  className={`fixed top-0 ${menuPosition} h-full w-80 max-w-[90vw] bg-red-900/95 backdrop-blur-2xl shadow-2xl z-50 lg:hidden flex flex-col pt-6 px-6`}
 >
-              <div className={`flex absolute ${language === 'en' ? "right-5" : "left-5"} top-0 justify-end mb-6 pt-4`}>
+              <div className={`flex absolute ${isRTL ? "left-4" : "right-4"} top-0 justify-end mb-6 pt-4`}>
                 <motion.button
                   whileTap={{ scale: 0.95, rotate: 90 }}
                   onClick={closeMobileMenu}
@@ -409,7 +420,7 @@ const menuPosition = isRTL ? "left-0" : "right-0";
                 <motion.button
                   whileTap={{ scale: 0.95 }}
                   onClick={toggleLanguage}
-                  className="w-full px-6 py-2 bg-gradient-to-r from-[#435781] to-[#224066] text-white rounded-4xl font-semibold text-base shadow-xl hover:shadow-2xl transition-all duration-300"
+                  className="w-full px-6 py-2 bg-gradient-to-r from-[#435781] to-[#284974] text-white rounded-4xl font-semibold text-base shadow-xl hover:shadow-2xl transition-all duration-300"
                 >
                   {language === "en" ? "العربية" : "English"}
                 </motion.button>

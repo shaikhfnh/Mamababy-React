@@ -34,10 +34,29 @@ export default function Footer() {
   const email = data?.email_url;
   const contactNumber = data?.contact_number
 
+// 🔥 Smart Scroll Handler - Same logic as Navbar
   const handleScroll = (hash) => {
-    const element = document.querySelector(hash);
-    if (element) {
-      element.scrollIntoView({ behavior: "smooth" });
+    const cleanHash = hash.startsWith('#') ? hash : `#${hash}`;
+
+    // Check if we are on home page
+    const isHome = window.location.pathname === '/' || 
+                   window.location.pathname === '/ar' || 
+                   window.location.pathname === '';
+
+    if (isHome) {
+      // Smooth scroll on same page
+      const element = document.querySelector(cleanHash);
+      if (element) {
+        element.scrollIntoView({ 
+          behavior: "smooth",
+          block: "start"
+        });
+      }
+    } else {
+      // Redirect to home with hash
+      const base = language === 'ar' ? '/ar' : '';
+      const url = `${window.location.origin}${base}${cleanHash}`;
+      window.location.href = url;
     }
   };
 
@@ -50,7 +69,7 @@ const expoLogos = [
 ];
 
   return (
-    <footer id="contact" className="w-full overflow-hidden bg-[#E5E5E5] ">
+    <footer id="contact" className={`w-full overflow-hidden bg-[#E5E5E5]  ${language === 'ar' ? "font-arabic " : 'font-sans'} `}>
 
       {/* ================= TOP SECTION ================= */}
       <div className="bg-[#E8DFD6]">
@@ -109,61 +128,42 @@ const expoLogos = [
           </motion.div>
 
           {/* QUICK LINKS */}
-          <motion.div
-            initial={{ opacity: 0, y: 35 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.65 }}
-            viewport={{ once: true }}
-          >
-
+  <motion.div initial={{ opacity: 0, y: 35 }} whileInView={{ opacity: 1, y: 0 }} transition={{ duration: 0.65 }} viewport={{ once: true }}>
             <div className="text-lg font-semibold mb-4 text-[#0F1E4A]">
               {language === "ar" ? "روابط سريعة" : "Quick Links"}
             </div>
 
             <ul className="space-y-3 text-gray-700 text-sm md:text-base">
-
               {quickLinks.map((link, i) => {
-
                 const label = getLocalizedField(link, "label", language);
+                const url = getLocalizedField(link, "path", language);
 
                 if (link.is_contact) {
-                  return (
-                    <li key={i} className="font-semibold text-black text-md ">
-                     <span className=" md:text-md text-black"> {label}</span>
-                    </li>
-                  );
+                  return <li key={i} className="font-semibold text-black">{label}</li>;
                 }
-
-                const url = getLocalizedField(link, "path", language);
 
                 if (link.is_page) {
                   return (
                     <li key={i}>
-                      <motion.a
-                        href={url}
-                        className={`inline-block   bg-green-500 transition text-black hover:text-[#0F1E4A]`}
-                      >
-                                             <span className=" md:text-md text-black back"> {label}</span>
-                      </motion.a>
+                      <a href={url} className="hover:text-[#0F1E4A] transition cursor-pointer">
+                        {label}
+                      </a>
                     </li>
                   );
                 }
 
+                // Internal scroll link (most important)
                 return (
                   <li key={i}>
-                    <motion.button
-                     
+                    <button
                       onClick={() => handleScroll(url)}
-                      className="inline-block transition hover:text-[#0F1E4A]"
+                      className="hover:text-[#0F1E4A] transition font-medium cursor-pointer"
                     >
-                                                               <span className={`font-medium md:text-md text-black ${url == '' ? "": "cursor-pointer"}`}> {label}</span>
-
-                    </motion.button>
+                      {label}
+                    </button>
                   </li>
                 );
-
               })}
-
               {/* Contact details */}
               {whatsapp && (
                 <li>
@@ -176,9 +176,7 @@ TEL: <a href={`tel:${contactNumber}`} className="text-md text-black">{contactNum
                   E: <a href={`mailto:${email}`} className="text-md text-black">{email}</a>
                 </li>
               )}
-
             </ul>
-
           </motion.div>
 
           {/* VENUE MAP */}

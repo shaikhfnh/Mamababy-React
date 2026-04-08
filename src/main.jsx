@@ -33,6 +33,9 @@ function initReact() {
   renderReact("#root-navbar", Navbar);
   renderReact("#root-visit", VisitLayout);
   renderReact("#root-footer", Footer);
+
+  window.reactAppReady = true;
+  console.log("✅ React App is fully loaded and ready");
 }
 
 if (document.readyState === "loading") {
@@ -40,3 +43,4 @@ if (document.readyState === "loading") {
 } else {
   initReact();
 }
+

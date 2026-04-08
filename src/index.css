@@ -112,35 +112,7 @@ section {
   }
 }
 
-/* ---------------- COMPONENT: word animation ---------------- */
-@layer components {
-  .word {
-    --translate-distance: -1lh;
-    --trans-duration: 500ms;
-    --trans-delay-factor: 20ms;
-    --trans-timimg-function: ease-in-out;
-    --text-color-hover: rgb(31, 73, 134);
-    text-decoration: none;
-    text-transform: uppercase;
-    margin: 0;
-     font-weight: 700;
-    line-height: 0.8;
-    display: flex;
-    overflow: hidden;
-    color: var(--clr-txt);
-  }
 
-  .word span {
-    display: inline-block;
-    transition: transform var(--trans-duration) var(--trans-timimg-function) var(--trans-delay, 0ms);
-    text-shadow: 0 1lh var(--text-color-hover);
-  }
-
-  /* Hover effect for word spans */
-  .word:hover span {
-    transform: translateY(var(--translate-distance));
-  }
-}
 
 /* add once globally */
 .no-scrollbar::-webkit-scrollbar {

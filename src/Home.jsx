@@ -66,7 +66,6 @@ const Home = () => {
       scrollToSection(hash);
     };
     window.addEventListener("hashchange", handleHashChange);
-
     return () => window.removeEventListener("hashchange", handleHashChange);
   }, [data]);
 

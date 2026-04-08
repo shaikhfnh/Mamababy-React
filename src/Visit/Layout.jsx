@@ -1,3 +1,4 @@
+import Footer from "../components/Footer"
 import Navbar from "../components/Navbar"
 import { useLanguage } from "../context/LanguageContext"
 import VisitSection from "./VisitSection"
@@ -8,6 +9,7 @@ const Layout = () => {
     <div className={language === 'ar' ? "font-arabic" : 'font-sans'}>
       <Navbar />
       <VisitSection />
+      <Footer />
     </div>
   )
 }
