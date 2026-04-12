@@ -9,6 +9,10 @@ import FashionforKids from "@assets/Category/FashionforKids.png";
 import LifestyleHome from "@assets/Category/LifestyleHome.png";
 import ParentingServices from "@assets/Category/ParentingServices.png";
 import TechforFamilies from "@assets/Category/TechforFamilies.png";
+import party from "@assets/Category/party.png";
+import travel from "@assets/Category/travel.png";
+import activities from "@assets/Category/activities.png";
+import development from "@assets/Category/development.png";
 
 export const categories = [
   {
@@ -87,5 +91,25 @@ export const categories = [
     desc: "Apps and gadgets designed to simplify parenting and family management, and more.",
     desc_ar: "تطبيقات وأجهزة مصممة لتسهيل التربية وإدارة شؤون الأسرة، والمزيد.",
     image: TechforFamilies,
+  },
+  {
+    title: "Kids Activities & After-School Programs",
+    title_ar: "أنشطة الأطفال وبرامج ما بعد المدرسة",
+    image: activities,
+  },
+  {
+    title: "Party & Event Organizer",
+      title_ar: "تنظيم الحفلات والمناسبات",
+    image: party,
+  },
+  {
+    title: "Child Development Services",
+    title_ar: "خدمات تنمية الطفل",
+    image: development,
+  },
+  {
+    title: "Family Travel Essentials",
+    title_ar: "مستلزمات السفر العائلية",
+    image: travel,
   },
 ];

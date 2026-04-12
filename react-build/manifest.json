@@ -43,6 +43,22 @@
     "file": "assets/WellnessNutrition-Bqz1sJFU.png",
     "src": "src/assets/Category/WellnessNutrition.png"
   },
+  "src/assets/Category/activities.png": {
+    "file": "assets/activities-B5BNn_5g.png",
+    "src": "src/assets/Category/activities.png"
+  },
+  "src/assets/Category/development.png": {
+    "file": "assets/development-BlpKij02.png",
+    "src": "src/assets/Category/development.png"
+  },
+  "src/assets/Category/party.png": {
+    "file": "assets/party-B4cB-Yxj.png",
+    "src": "src/assets/Category/party.png"
+  },
+  "src/assets/Category/travel.png": {
+    "file": "assets/travel-GlM6GK0R.png",
+    "src": "src/assets/Category/travel.png"
+  },
   "src/assets/LOGO.png": {
     "file": "assets/LOGO-D9jC7W-J.png",
     "src": "src/assets/LOGO.png"
@@ -68,12 +84,12 @@
     "src": "src/assets/juman-normal.ttf"
   },
   "src/main.jsx": {
-    "file": "assets/main-sGm0Omtm.js",
+    "file": "assets/main-BPDhkq7H.js",
     "name": "main",
     "src": "src/main.jsx",
     "isEntry": true,
     "css": [
-      "assets/main-moG8yeDn.css"
+      "assets/main-CwQlAURv.css"
     ],
     "assets": [
       "assets/LOGO-D9jC7W-J.png",
@@ -91,6 +107,10 @@
       "assets/LifestyleHome-G9wdrEyZ.png",
       "assets/ParentingServices-DS1dDCoh.png",
       "assets/TechforFamilies-Ct43HvKr.png",
+      "assets/party-B4cB-Yxj.png",
+      "assets/travel-GlM6GK0R.png",
+      "assets/activities-B5BNn_5g.png",
+      "assets/development-BlpKij02.png",
       "assets/juman-normal-3I0buQVk.ttf",
       "assets/juman-bold-CfmSWe00.ttf"
     ]
