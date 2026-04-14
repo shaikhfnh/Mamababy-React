@@ -1,64 +1,4 @@
 {
-  "src/assets/Category/BabyCareEssentials.png": {
-    "file": "assets/BabyCareEssentials-CjE53ESq.png",
-    "src": "src/assets/Category/BabyCareEssentials.png"
-  },
-  "src/assets/Category/ChildSafetyMonitoring.png": {
-    "file": "assets/ChildSafetyMonitoring-cbUIPSCt.png",
-    "src": "src/assets/Category/ChildSafetyMonitoring.png"
-  },
-  "src/assets/Category/EducationalToysLearningTools.png": {
-    "file": "assets/EducationalToysLearningTools-D7yt_L3r.png",
-    "src": "src/assets/Category/EducationalToysLearningTools.png"
-  },
-  "src/assets/Category/EntertainmentProviders.png": {
-    "file": "assets/EntertainmentProviders-CZmMPuyA.png",
-    "src": "src/assets/Category/EntertainmentProviders.png"
-  },
-  "src/assets/Category/FashionforKids.png": {
-    "file": "assets/FashionforKids-C-lOhPhv.png",
-    "src": "src/assets/Category/FashionforKids.png"
-  },
-  "src/assets/Category/LifestyleHome.png": {
-    "file": "assets/LifestyleHome-G9wdrEyZ.png",
-    "src": "src/assets/Category/LifestyleHome.png"
-  },
-  "src/assets/Category/MaternityProducts.png": {
-    "file": "assets/MaternityProducts-BfYL5c_e.png",
-    "src": "src/assets/Category/MaternityProducts.png"
-  },
-  "src/assets/Category/MedicalLabourServices.png": {
-    "file": "assets/MedicalLabourServices-DTmrIvNT.png",
-    "src": "src/assets/Category/MedicalLabourServices.png"
-  },
-  "src/assets/Category/ParentingServices.png": {
-    "file": "assets/ParentingServices-DS1dDCoh.png",
-    "src": "src/assets/Category/ParentingServices.png"
-  },
-  "src/assets/Category/TechforFamilies.png": {
-    "file": "assets/TechforFamilies-Ct43HvKr.png",
-    "src": "src/assets/Category/TechforFamilies.png"
-  },
-  "src/assets/Category/WellnessNutrition.png": {
-    "file": "assets/WellnessNutrition-Bqz1sJFU.png",
-    "src": "src/assets/Category/WellnessNutrition.png"
-  },
-  "src/assets/Category/activities.png": {
-    "file": "assets/activities-B5BNn_5g.png",
-    "src": "src/assets/Category/activities.png"
-  },
-  "src/assets/Category/development.png": {
-    "file": "assets/development-BlpKij02.png",
-    "src": "src/assets/Category/development.png"
-  },
-  "src/assets/Category/party.png": {
-    "file": "assets/party-B4cB-Yxj.png",
-    "src": "src/assets/Category/party.png"
-  },
-  "src/assets/Category/travel.png": {
-    "file": "assets/travel-GlM6GK0R.png",
-    "src": "src/assets/Category/travel.png"
-  },
   "src/assets/LOGO.png": {
     "file": "assets/LOGO-D9jC7W-J.png",
     "src": "src/assets/LOGO.png"
@@ -84,33 +24,18 @@
     "src": "src/assets/juman-normal.ttf"
   },
   "src/main.jsx": {
-    "file": "assets/main-BPDhkq7H.js",
+    "file": "assets/main-CzbBwgRj.js",
     "name": "main",
     "src": "src/main.jsx",
     "isEntry": true,
     "css": [
-      "assets/main-CwQlAURv.css"
+      "assets/main-B44vKGkg.css"
     ],
     "assets": [
       "assets/LOGO-D9jC7W-J.png",
       "assets/fouz-ZqD4D6iz.png",
       "assets/ixir-CdeGN74A.png",
       "assets/mizaamiyat-DX8bCL08.png",
-      "assets/WellnessNutrition-Bqz1sJFU.png",
-      "assets/MaternityProducts-BfYL5c_e.png",
-      "assets/ChildSafetyMonitoring-cbUIPSCt.png",
-      "assets/MedicalLabourServices-DTmrIvNT.png",
-      "assets/EducationalToysLearningTools-D7yt_L3r.png",
-      "assets/BabyCareEssentials-CjE53ESq.png",
-      "assets/EntertainmentProviders-CZmMPuyA.png",
-      "assets/FashionforKids-C-lOhPhv.png",
-      "assets/LifestyleHome-G9wdrEyZ.png",
-      "assets/ParentingServices-DS1dDCoh.png",
-      "assets/TechforFamilies-Ct43HvKr.png",
-      "assets/party-B4cB-Yxj.png",
-      "assets/travel-GlM6GK0R.png",
-      "assets/activities-B5BNn_5g.png",
-      "assets/development-BlpKij02.png",
       "assets/juman-normal-3I0buQVk.ttf",
       "assets/juman-bold-CfmSWe00.ttf"
     ]

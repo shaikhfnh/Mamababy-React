@@ -150,7 +150,7 @@ export default function Benefits({ data }) {
                     <h3 className="text-2xl text-gray-800 font-semibold mb-3">
                       {benefits[active]?.title}
                     </h3>
-                    <div className="text-gray-600 text-lg leading-relaxed">
+                    <div className="text-gray-700 font-normal text-lg leading-relaxed">
                       {benefits[active]?.description}
                     </div>
                   </div>
@@ -215,7 +215,7 @@ export default function Benefits({ data }) {
                         alt={item.title}
                         className="w-full h-64 object-cover rounded-xl mb-4"
                       />
-                      <div className="text-gray-600 leading-relaxed">
+                      <div className="text-gray-600 font-normal leading-relaxed">
                         {item.description}
                       </div>
                     </motion.div>

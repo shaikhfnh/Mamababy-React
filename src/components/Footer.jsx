@@ -85,7 +85,7 @@ const expoLogos = [
 
             <img src={logo} alt="Mama Baby Expo" className="h-16 mb-4" />
 
-            <div className="text-black leading-relaxed text-sm md:text-base select-none">
+            <div className="text-black font-normal leading-relaxed text-sm md:text-base select-none">
               {footerDescription}
             </div>
 
@@ -166,13 +166,13 @@ const expoLogos = [
               })}
               {/* Contact details */}
               {whatsapp && (
-                <li>
-TEL: <a href={`tel:${contactNumber}`} className="text-md text-black">{contactNumber}</a>
+                <li className="font-medium">
+TEL: <a  href={`tel:${contactNumber}`} className="text-md text-black">{contactNumber}</a>
                 </li>
               )}
 
               {email && (
-                <li>
+                <li className="font-medium">
                   E: <a href={`mailto:${email}`} className="text-md text-black">{email}</a>
                 </li>
               )}

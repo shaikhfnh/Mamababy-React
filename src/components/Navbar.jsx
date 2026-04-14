@@ -350,7 +350,7 @@ const menuPosition = isRTL ? "left-0" : "right-0";
   animate={menuAnimation.animate}
   exit={menuAnimation.exit}
   transition={{ type: "spring", stiffness: 300, damping: 30 }}
-  className={`fixed top-0 ${menuPosition} h-full w-80 max-w-[90vw] bg-red-900/95 backdrop-blur-2xl shadow-2xl z-50 lg:hidden flex flex-col pt-6 px-6`}
+  className={`fixed top-0 ${menuPosition} h-full w-80 max-w-[90vw] bg-white backdrop-blur-2xl shadow-2xl z-50 lg:hidden flex flex-col pt-6 px-6`}
 >
               <div className={`flex absolute ${isRTL ? "left-4" : "right-4"} top-0 justify-end mb-6 pt-4`}>
                 <motion.button

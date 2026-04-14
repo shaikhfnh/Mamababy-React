@@ -6,33 +6,11 @@ import { getLocalizedField } from "../utils/getLocalizedField";
 export default function BookBoothSection({ data }) {
   const { language } = useLanguage();
 
-  const categories = [
-    "Baby Care Essentials",
-    "Maternity Products",
-    "Educational Toys and Learning Tools",
-    "Child Safety and Monitoring",
-    "Wellness and Nutrition",
-    "Parenting Services",
-    "Lifestyle and Home",
-    "Tech for Families",
-    "Fashion for Kids",
-    "Entertainment Providers",
-    "Medical Services",
-  ];
-
-  const categoryTranslations = {
-    "Baby Care Essentials": "مستلزمات العناية بالطفل",
-    "Maternity Products": "منتجات الأمومة",
-    "Educational Toys and Learning Tools": "الألعاب التعليمية وأدوات التعلم",
-    "Child Safety and Monitoring": "سلامة ومراقبة الطفل",
-    "Wellness and Nutrition": "الصحة والتغذية",
-    "Parenting Services": "خدمات الأسرة",
-    "Lifestyle and Home": "أسلوب الحياة والمنزل",
-    "Tech for Families": "التكنولوجيا للعائلات",
-    "Fashion for Kids": "أزياء الأطفال",
-    "Entertainment Providers": "مزودو الترفيه",
-    "Medical Services": "الخدمات الطبية",
-  };
+  const dynamicCategories = data?.categories_list.map((item, index) => ({
+      id: item.id || `cat-${index}`,
+      title: getLocalizedField(item, "title", language) || item.title || "Untitled",
+      data:item.title || "Undefined!"
+    }));
 
   const translations = {
     en: {
@@ -190,30 +168,30 @@ if (!username || !instagramRegex.test(username)) {
     setIsSubmitting(true);
     setSubmitError(false);
     console.log(form,"the form")
-    try {
-      console.log("in the try")
-      const response = await fetch(
-        "https://www.mamababyexpo.com/wp-json/expo/v1/booth-enquiry",
-        {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(form),
-        }
-      );
+    // try {
+    //   console.log("in the try")
+    //   const response = await fetch(
+    //     "https://www.mamababyexpo.com/wp-json/expo/v1/booth-enquiry",
+    //     {
+    //       method: "POST",
+    //       headers: { "Content-Type": "application/json" },
+    //       body: JSON.stringify(form),
+    //     }
+    //   );
 
-      const result = await response.json();
-      console.log(result,"the result in the email submission")
-      if (result.success) {
-        setIsSubmitted(true);
-        setTimeout(() => setIsSubmitted(false), 4000);
-      } else {
-        setSubmitError(true);
-      }
-    } catch {
-      setSubmitError(true);
-    } finally {
-      setIsSubmitting(false);
-    }
+    //   const result = await response.json();
+    //   console.log(result,"the result in the email submission")
+    //   if (result.success) {
+    //     setIsSubmitted(true);
+    //     setTimeout(() => setIsSubmitted(false), 4000);
+    //   } else {
+    //     setSubmitError(true);
+    //   }
+    // } catch {
+    //   setSubmitError(true);
+    // } finally {
+    //   setIsSubmitting(false);
+    // }
   };
 
   return (
@@ -272,19 +250,19 @@ if (!username || !instagramRegex.test(username)) {
                 </label>
 
                 <div className="grid lg:grid-cols-3 gap-2 border border-gray-300 rounded-xl p-4 max-h-48 lg:max-h-full overflow-y-auto">
-                  {categories.map((cat, i) => {
-                    const selected = form.categories.includes(cat);
+                  {dynamicCategories.map((cat, i) => {
+                    const selected = form.categories.includes(cat?.data);
                     return (
                       <div
                         key={i}
-                        onClick={() => handleCategoryChange(cat)}
+                        onClick={() => handleCategoryChange(cat.data)}
                         className={`cursor-pointer px-3 py-2 rounded-lg text-sm transition
                           ${selected
                             ? "bg-[#1D4B84] text-white"
                             : "bg-white/20 text-[#2F3E46] border border-gray-300 hover:bg-gray-200"
                           }`}
                       >
-                        {language === "ar" ? categoryTranslations[cat] : cat}
+                        {cat?.title}
                       </div>
                     );
                   })}
@@ -306,10 +284,10 @@ if (!username || !instagramRegex.test(username)) {
                       <div
                         key={opt}
                         onClick={() => setForm({ ...form, sponsor: opt })}
-                        className={`px-5 py-2 rounded-full text-md cursor-pointer transition
+                        className={`px-3 py-1 font-medium rounded-full text-md cursor-pointer hover:scale-95 ease-in transition
                           ${active
                             ? "bg-[#1D4B84] text-white"
-                            : "bg-gray-200 text-[#2F3E46]"
+                            : "bg-gray-200 shadow-lg text-[#2F3E46] border border-gray-300"
                           }`}
                       >
                         {opt === "Yes" ? t.yes : t.no}
