@@ -116,7 +116,6 @@ export default function HeroSlider({ heroImages = [] }) {
             initial="initial"
             animate="animate"
             exit="exit"
-            priority
             sizes="100vw"
           />
         </AnimatePresence>

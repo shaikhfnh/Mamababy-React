@@ -47,9 +47,11 @@
 html {
   scroll-behavior: smooth;
 }
+
 section {
-  scroll-margin-top: 200px; /* desktop navbar height */
+  scroll-margin-top: 80px; /* your navbar height */
 }
+
 .wp-site-blocks button:focus,
 .wp-site-blocks a:focus,
 .wp-site-blocks div:focus {
@@ -111,6 +113,7 @@ section {
     font-size: 0.8rem;
   }
 }
+
 
 
 
