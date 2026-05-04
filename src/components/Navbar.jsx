@@ -304,7 +304,7 @@ const menuPosition = isRTL ? "left-0" : "right-0";
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
               onClick={() => handleScrollTo("booking")}
-              className="ml-3 px-6 lg:px-8 py-3 lg:py-3.5 cursor-pointer rounded-2xl bg-gradient-to-r from-[#091C41] to-[#1e3a5f] text-white font-semibold text-sm lg:text-base shadow-xl hover:shadow-2xl transition-all duration-300"
+              className="ml-3 px-6 lg:px-8 py-3 lg:py-2.5 cursor-pointer rounded-2xl bg-gradient-to-r from-[#091C41] to-[#1e3a5f] text-white font-semibold text-sm lg:text-base shadow-xl hover:shadow-2xl transition-all duration-300"
             >
               {bookText}
             </motion.button>

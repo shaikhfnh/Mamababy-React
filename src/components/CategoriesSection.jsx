@@ -79,7 +79,7 @@ function CategoriesSection({ data }) {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.8 }}
-          className="grid md:grid-cols-[1.2fr_1fr] gap-16 items-center"
+          className="grid md:grid-cols-[1fr_2fr] gap-16 items-center"
         >
           
           {/* LEFT SIDE - Image + Text */}
@@ -96,7 +96,7 @@ function CategoriesSection({ data }) {
                 <motion.img
                   src={active?.image}
                   alt={active?.title || ""}
-                  className="rounded-full shadow-2xl max-h-[300px] w-[300px] object-cover mx-auto"
+                  className="rounded-full bg-white shadow-2xl max-h-[300px] w-[300px] object-cover mx-auto"
                   whileHover={{ rotate: language === "ar" ? 4 : -4 }}
                   transition={{ type: "spring", stiffness: 200 }}
                 />
@@ -123,7 +123,7 @@ function CategoriesSection({ data }) {
           </div>
 
           {/* RIGHT SIDE - Buttons */}
-          <div className="grid grid-cols-3 gap-5">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-5">
             {localizedCategories.map((item, index) => {
               const isActive = activeIndex === index;
 
@@ -141,7 +141,7 @@ function CategoriesSection({ data }) {
                   <motion.img
                     src={item.image}
                     alt={item.title}
-                    className="w-10 h-10 mb-3 object-contain"
+                    className="w-10 h-10 mb-3 bg-white rounded-full object-contain"
                     animate={{ y: isActive ? -6 : 0, scale: isActive ? 1.2 : 1 }}
                     whileHover={{ rotate: language === "ar" ? 6 : -6 }}
                   />
